@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Run cpplint. If errors are found, enable check_cpplint.
+cppcmd="$(cpplint --quiet --recursive . 2>&1 /dev/null)"
+if [ $(echo -n $cppcmd | wc -c) -ne 0 ]
+then
+    check_cpplint=1
+    echo "cpplint: errors"
+    echo $cppcmd
+else
+    check_cpplint=0
+    echo "cpplint: no errors"
+fi
+
+# Run clang-format and check for replacement lines.
+find . \( -name *.cpp -o -name *.h -o -name *.hpp \) ! -path './external/*' -exec clang-format -style=file -output-replacements-xml {} \; | grep -c "<replacement " >/dev/null
+if [ $? -ne 1 ]
+then
+    check_clangformat=1
+    echo "clang-format: errors"
+else
+    check_clangformat=0
+    echo "clang-format: no errors"
+fi
+
+# Run catkin_lint and check for any findings.
+catkinlintcmd="$(catkin_lint -W2 --strict --quiet --ignore uninstalled_script .)"
+if [ $(echo -n $catkinlintcmd | wc -c) -ne 0 ]
+then
+    check_catkinlint=1
+    echo "catkin_lint: errors"
+    echo $catkinlintcmd
+else
+    check_catkinlint=0
+    echo "catkin_lint: no errors"
+fi
+
+# Fail the commit if any errors have been found.
+if [ $check_cpplint == 1 -o $check_clangformat == 1 -o $check_catkinlint == 1 ]; then
+    exit 1
+fi

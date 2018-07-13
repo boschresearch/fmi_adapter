@@ -1,0 +1,6 @@
+Third Party Licenses
+====================
+
+This repository does not include any third-party components.
+
+Please note that the build file of the fmi_adapter package will download, compile and link the FMILibrary V2.0.3 from https://jmodelica.org/ when invoking it.
