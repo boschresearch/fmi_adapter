@@ -178,10 +178,14 @@ FMIAdapter::FMIAdapter(const std::string& fmuPath, ros::Duration stepSize, bool 
   const fmi2_real_t startTime = 0.0;
   const fmi2_real_t stopTime = -1.0;
   fmi2_status_t fmiStatus = fmi2_import_setup_experiment(fmu_, fmi2_true, relativeTol, startTime, fmi2_false, stopTime);
-  assert(fmiStatus == fmi2_status_ok);
+  if (fmiStatus != fmi2_status_ok) {
+    throw std::runtime_error("fmi2_import_setup_experiment failed!");
+  }
 
   fmiStatus = fmi2_import_enter_initialization_mode(fmu_);
-  assert(fmiStatus == fmi2_status_ok);
+  if (fmiStatus != fmi2_status_ok) {
+    throw std::runtime_error("fmi2_import_enter_initialization_mode failed!");
+  }
 }
 
 
@@ -275,7 +279,9 @@ void FMIAdapter::exitInitializationMode(ros::Time simulationTime) {
   }
 
   fmi2_status_t fmiStatus = fmi2_import_exit_initialization_mode(fmu_);
-  assert(fmiStatus == fmi2_status_ok);
+  if (fmiStatus != fmi2_status_ok) {
+    throw std::runtime_error("fmi2_import_exit_initialization_mode failed!");
+  }
   inInitializationMode_ = false;
 
   fmuTimeOffset_ = simulationTime - ros::Time(0.0);
@@ -327,7 +333,9 @@ void FMIAdapter::calcUntil(ros::Time simulationTime) {
 
     const fmi2_boolean_t doStep = fmi2_true;
     fmi2_status_t fmiStatus = fmi2_import_do_step(fmu_, fmuTime_, stepSizeAsDouble_, doStep);
-    assert(fmiStatus == fmi2_status_ok);
+    if (fmiStatus != fmi2_status_ok) {
+      throw std::runtime_error("fmi2_import_do_step failed!");
+    }
     fmuTime_ += stepSizeAsDouble_;
   }
 }
