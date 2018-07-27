@@ -14,7 +14,8 @@ set(FMILibraryProject_LIB_DIR "${INSTALL_DIR}/src/install/lib")
 
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11 -Wall -Wextra -Wpedantic -Weffc++ -Werror)
+add_compile_options(-std=c++11 -Wall -Wextra -Wpedantic)
+# add_compile_options(-Weffc++ -Werror)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
