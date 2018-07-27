@@ -39,7 +39,7 @@ class FMIAdapter {
  public:
   /// This ctor creates an instance using the FMU from the given path.
   explicit FMIAdapter(const std::string& fmuPath, ros::Duration stepSize = ros::Duration(0.001),
-                         bool interpolateInput = true, const std::string& tmpPath = "");
+                      bool interpolateInput = true, const std::string& tmpPath = "");
 
   FMIAdapter(const FMIAdapter& other) = delete;
 

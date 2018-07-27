@@ -110,7 +110,7 @@ std::vector<std::string> getVariableNamesFromFMU(
 
 
 FMIAdapter::FMIAdapter(const std::string& fmuPath, ros::Duration stepSize, bool interpolateInput,
-                             const std::string& tmpPath)
+                       const std::string& tmpPath)
     : fmuPath_(fmuPath), stepSize_(stepSize), stepSizeAsDouble_(stepSize.toSec()), interpolateInput_(interpolateInput),
       tmpPath_(tmpPath) {
   if (stepSize <= ros::Duration(0.0)) {
