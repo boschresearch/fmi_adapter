@@ -211,10 +211,16 @@ install(DIRECTORY launch/
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_fmi_adapter_test.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
+if(CATKIN_ENABLE_TESTING)
+  file(GLOB_RECURSE myTestSources "test/*.cpp")
+  set(GTEST_LIBRARY gtest)
+  find_package(rostest REQUIRED)
+  add_rostest_gtest("${PROJECT_NAME}_test" test/${PROJECT_NAME}.test ${myTestSources})
+  add_dependencies("${PROJECT_NAME}_test" ${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+  include_directories(include SYSTEM ${catkin_INCLUDE_DIRS})
+  target_include_directories("${PROJECT_NAME}_test" PRIVATE ${catkin_INCLUDE_DIRS} "test")
+  target_link_libraries("${PROJECT_NAME}_test" ${PROJECT_NAME} ${catkin_LIBRARIES} stdc++ pthread m)
+endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
