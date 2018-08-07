@@ -14,8 +14,7 @@ set(FMILibraryProject_LIB_DIR "${INSTALL_DIR}/src/install/lib")
 
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11 -Wall -Wextra -Wpedantic)
-# add_compile_options(-Weffc++ -Werror)
+add_compile_options(-std=c++11 -Wall -Wextra)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -136,6 +135,16 @@ include_directories(
 add_library(${PROJECT_NAME}_fmilib STATIC IMPORTED)
 set_target_properties(${PROJECT_NAME}_fmilib PROPERTIES IMPORTED_LOCATION ${FMILibraryProject_LIB_DIR}/libfmilib.a)
 
+
+### Set strict compiler settings for all source files, but not for test files due to warnings raised by GTest headers.
+set_source_files_properties(
+  include/${PROJECT_NAME}/FMIAdapter.h
+  src/${PROJECT_NAME}/FMIAdapter.cpp
+  src/${PROJECT_NAME}_node.cpp
+  PROPERTIES COMPILE_FLAGS "-Wpedantic -Weffc++ -Werror"
+)
+
+
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
   src/${PROJECT_NAME}/FMIAdapter.cpp
@@ -213,13 +222,11 @@ install(DIRECTORY launch/
 
 ## Add gtest based cpp test target and link libraries
 if(CATKIN_ENABLE_TESTING)
-  file(GLOB_RECURSE myTestSources "test/*.cpp")
+  file(GLOB_RECURSE myTestCppFiles "test/*.cpp")
   set(GTEST_LIBRARY gtest)
   find_package(rostest REQUIRED)
-  add_rostest_gtest("${PROJECT_NAME}_test" test/${PROJECT_NAME}.test ${myTestSources})
-  add_dependencies("${PROJECT_NAME}_test" ${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-  include_directories(include SYSTEM ${catkin_INCLUDE_DIRS})
-  target_include_directories("${PROJECT_NAME}_test" PRIVATE ${catkin_INCLUDE_DIRS} "test")
+  add_rostest_gtest("${PROJECT_NAME}_test" test/${PROJECT_NAME}.test ${myTestCppFiles})
+  target_include_directories("${PROJECT_NAME}_test" PRIVATE "test" SYSTEM PUBLIC ${catkin_INCLUDE_DIRS})
   target_link_libraries("${PROJECT_NAME}_test" ${PROJECT_NAME} ${catkin_LIBRARIES} stdc++ pthread m)
 endif()
 
