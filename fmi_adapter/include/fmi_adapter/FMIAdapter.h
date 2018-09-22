@@ -54,6 +54,9 @@ class FMIAdapter {
   /// Returns true if the FMU of this instances supports a variable communication step-size.
   bool canHandleVariableCommunicationStepSize() const;
 
+  /// Returns the default experiment step-size of the FMU of this instance.
+  ros::Duration getDefaultExperimentStep() const;
+
   /// Returns all variables (including parameters, aliases, etc.) of the wrapped FMU in the FMI Library's
   /// internal representation.
   std::vector<fmi2_import_variable_t*> getAllVariables() const;

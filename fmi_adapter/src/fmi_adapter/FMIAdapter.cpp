@@ -232,6 +232,11 @@ bool FMIAdapter::canHandleVariableCommunicationStepSize() const {
 }
 
 
+ros::Duration FMIAdapter::getDefaultExperimentStep() const {
+  return ros::Duration(fmi2_import_get_default_experiment_step(fmu_));
+}
+
+
 std::vector<fmi2_import_variable_t*> FMIAdapter::getAllVariables() const {
   return helpers::getVariablesFromFMU(fmu_, helpers::variableFilterAll);
 }
