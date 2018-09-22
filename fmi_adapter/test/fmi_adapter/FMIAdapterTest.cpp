@@ -49,6 +49,11 @@ class FMIAdapterTest : public ::testing::Test {
 };
 
 
+// The FMU transportDelay.fmu is built for x86-64 (AMD64). Therefore, run unit
+// tests on this architecture only.
+#ifdef __x86_64__
+
+
 TEST_F(FMIAdapterTest, canHandleVariableCommunicationStepSize) {
   fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
   EXPECT_FALSE(wrapper.canHandleVariableCommunicationStepSize());
@@ -136,6 +141,9 @@ TEST_F(FMIAdapterTest, calcUntil_interpolationAfterExtrapolation) {
   wrapper.calcUntil(startTime + DELAY + ros::Duration(3.5));
   EXPECT_NEAR(1.125, wrapper.getOutputValue("y"), EPSILON);
 }
+
+
+#endif  // __x86_64__
 
 
 }  // namespace
