@@ -227,6 +227,11 @@ std::string FMIAdapter::rosifyName(const std::string& name) {
 }
 
 
+bool FMIAdapter::canHandleVariableCommunicationStepSize() const {
+  return static_cast<bool>(fmi2_import_get_capability(fmu_, fmi2_cs_canHandleVariableCommunicationStepSize));
+}
+
+
 std::vector<fmi2_import_variable_t*> FMIAdapter::getAllVariables() const {
   return helpers::getVariablesFromFMU(fmu_, helpers::variableFilterAll);
 }
@@ -306,6 +311,7 @@ void FMIAdapter::calcUntil(ros::Time simulationTime) {
 
   fmi2_real_t targetFMUTime = (simulationTime - fmuTimeOffset_).toSec();
   if (targetFMUTime < fmuTime_) {
+    ROS_ERROR("Given time %f is before current simulation time %f!", targetFMUTime, fmuTime_);
     throw std::invalid_argument("Given time is before current simulation time!");
   }
 
@@ -338,6 +344,15 @@ void FMIAdapter::calcUntil(ros::Time simulationTime) {
     }
     fmuTime_ += stepSizeAsDouble_;
   }
+}
+
+
+ros::Time FMIAdapter::getSimulationTime() {
+  if (inInitializationMode_) {
+    throw std::runtime_error("FMU is still in initialization mode!");
+  }
+
+  return ros::Time(fmuTime_) + fmuTimeOffset_;
 }
 
 

@@ -126,6 +126,8 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+#catkin_lint: ignore_once missing_directory
+#catkin_lint: ignore_once external_directory
 include_directories(
   include
   SYSTEM ${catkin_INCLUDE_DIRS} ${FMILibraryProject_INCLUDE_DIR}

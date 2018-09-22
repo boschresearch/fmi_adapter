@@ -49,6 +49,12 @@ class FMIAdapterTest : public ::testing::Test {
 };
 
 
+TEST_F(FMIAdapterTest, canHandleVariableCommunicationStepSize) {
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
+  EXPECT_FALSE(wrapper.canHandleVariableCommunicationStepSize());
+}
+
+
 TEST_F(FMIAdapterTest, getAllVariableNames) {
   fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
   wrapper.exitInitializationMode(ros::Time::now());

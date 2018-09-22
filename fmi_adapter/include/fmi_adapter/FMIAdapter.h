@@ -51,6 +51,9 @@ class FMIAdapter {
   /// It simply replaces all special charaters not supported by ROS with an '_'.
   static std::string rosifyName(const std::string& name);
 
+  /// Returns true if the FMU of this instances supports a variable communication step-size.
+  bool canHandleVariableCommunicationStepSize() const;
+
   /// Returns all variables (including parameters, aliases, etc.) of the wrapped FMU in the FMI Library's
   /// internal representation.
   std::vector<fmi2_import_variable_t*> getAllVariables() const;
@@ -99,7 +102,11 @@ class FMIAdapter {
   /// Advances the simulation of the wrapped FMU until the given point in time (modulo step-size).
   /// In detail, the simulation is performed iteratively using the configured step-size. Before each simulation step
   /// the relevant input values passed previously by setInputValue(..) are set depending on the given timestamps.
-  void calcUntil(ros::Time time);
+  void calcUntil(ros::Time simulationTime);
+
+  /// Returns the current simulation time, which is given by the argument of the last calcUntil(..) call modulo
+  /// step-size.
+  ros::Time getSimulationTime();
 
   /// Returns the current value of the given output variable.
   double getOutputValue(fmi2_import_variable_t* variable) const;
