@@ -49,25 +49,25 @@ class FMIAdapterTest : public ::testing::Test {
 };
 
 
-// The FMU transportDelay.fmu is built for x86-64 (AMD64). Therefore, run unit
+// The FMU TransportDelay.fmu is built for x86-64 (AMD64). Therefore, run unit
 // tests on this architecture only.
 #ifdef __x86_64__
 
 
 TEST_F(FMIAdapterTest, canHandleVariableCommunicationStepSize) {
-  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   EXPECT_FALSE(wrapper.canHandleVariableCommunicationStepSize());
 }
 
 
 TEST_F(FMIAdapterTest, getDefaultExperimentStep) {
-  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   EXPECT_EQ(wrapper.getDefaultExperimentStep(), ros::Duration(0.001));
 }
 
 
 TEST_F(FMIAdapterTest, getAllVariableNames) {
-  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   wrapper.exitInitializationMode(ros::Time::now());
   std::vector<std::string> expectedNames = {"x", "y", "d"};
   std::vector<std::string> actualNames = wrapper.getAllVariableNames();
@@ -76,7 +76,7 @@ TEST_F(FMIAdapterTest, getAllVariableNames) {
 
 
 TEST_F(FMIAdapterTest, calcUntil_withInterpolation) {
-  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   const ros::Duration DELAY(2.0);
 
   wrapper.setInitialValue("x", 2.0);
@@ -101,7 +101,7 @@ TEST_F(FMIAdapterTest, calcUntil_withInterpolation) {
 
 
 TEST_F(FMIAdapterTest, calcUntil_withoutInterpolation) {
-  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu", ros::Duration(0.001), false);
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu", ros::Duration(0.001), false);
   const ros::Duration DELAY(2.0);
 
   wrapper.setInitialValue("x", 2.0);
@@ -126,7 +126,7 @@ TEST_F(FMIAdapterTest, calcUntil_withoutInterpolation) {
 
 
 TEST_F(FMIAdapterTest, calcUntil_interpolationAfterExtrapolation) {
-  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "transportDelay.fmu");
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   const ros::Duration DELAY(2.0);
 
   wrapper.setInitialValue("x", 2.0);
