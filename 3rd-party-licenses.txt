@@ -11,9 +11,10 @@ such Third Party IP, are set forth below.
 Overview
 --------------------------------------------------------------------------
 
-The FMU files at fmi_adapter/test/fmu/ have been created using the
-fmuTemplate.c and few selected header files from the FMU SDK by QTronic,
-which is licensed under the 2-clause BSD license.
+The FMU files at fmi_adapter/test/fmu/ and fmi_adapter_examples/share/
+have been created using the fmuTemplate.c and few selected header files
+from the FMU SDK by QTronic, which is licensed under the 2-clause BSD
+license.
 
 Name:      FMU SDK (FmuSdk)
 Version:   2.0.5
