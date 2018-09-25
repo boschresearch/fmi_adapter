@@ -66,11 +66,11 @@ Here, `angle_x` is the topic name whereas `angleX` is the corresponding input va
 
 Use `adapter.getInputVariableNames()` to get a list of all input variables.
 
-**Step 4:** Create a timer or subscriber that triggers the simulation of the FMU using `adapter.calcUntil(..)`. For example:
+**Step 4:** Create a timer or subscriber that triggers the simulation of the FMU using `adapter.doStepsUntil(..)`. For example:
 
 ```
 ros::Timer timer = nHandle.createTimer(ros::Duration(0.01), [&](const ros::TimerEvent& event) {
-    adapter.calcUntil(event.current_expected);
+    adapter.doStepsUntil(event.current_expected);
     double y = adapter.getOutputValue("angleY");
     // ... e.g., publish y on a topic ...
   });

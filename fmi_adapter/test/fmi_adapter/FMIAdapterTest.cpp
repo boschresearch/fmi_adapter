@@ -93,7 +93,7 @@ TEST_F(FMIAdapterTest, getAllVariableNames) {
 }
 
 
-TEST_F(FMIAdapterTest, calcUntil_withInterpolation) {
+TEST_F(FMIAdapterTest, doStepsUntil_withInterpolation) {
   fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   const ros::Duration DELAY(2.0);
 
@@ -105,20 +105,20 @@ TEST_F(FMIAdapterTest, calcUntil_withInterpolation) {
   wrapper.setInputValue("x", startTime + ros::Duration(7.0), 3.0);
   wrapper.setInputValue("x", startTime + ros::Duration(9.0), -1.0);
 
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(0.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(0.5));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(4.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(4.5));
   EXPECT_NEAR(2.167, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(7.0));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(7.0));
   EXPECT_NEAR(3.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(8.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(8.5));
   EXPECT_NEAR(0.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(9.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(9.5));
   EXPECT_NEAR(-1.0, wrapper.getOutputValue("y"), EPSILON);
 }
 
 
-TEST_F(FMIAdapterTest, calcUntil_withoutInterpolation) {
+TEST_F(FMIAdapterTest, doStepsUntil_withoutInterpolation) {
   fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu", ros::Duration(0.001), false);
   const ros::Duration DELAY(2.0);
 
@@ -130,20 +130,20 @@ TEST_F(FMIAdapterTest, calcUntil_withoutInterpolation) {
   wrapper.setInputValue("x", startTime + ros::Duration(7.0), 3.0);
   wrapper.setInputValue("x", startTime + ros::Duration(9.0), -1.0);
 
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(0.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(0.5));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(4.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(4.5));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(7.1));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(7.1));
   EXPECT_NEAR(3.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(8.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(8.5));
   EXPECT_NEAR(3.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(9.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(9.5));
   EXPECT_NEAR(-1.0, wrapper.getOutputValue("y"), EPSILON);
 }
 
 
-TEST_F(FMIAdapterTest, calcUntil_interpolationAfterExtrapolation) {
+TEST_F(FMIAdapterTest, doStepsUntil_interpolationAfterExtrapolation) {
   fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   const ros::Duration DELAY(2.0);
 
@@ -151,12 +151,12 @@ TEST_F(FMIAdapterTest, calcUntil_interpolationAfterExtrapolation) {
   const ros::Time startTime = ros::Time::now();
   wrapper.exitInitializationMode(startTime);
 
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(1.0));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(1.0));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
   wrapper.setInputValue("x", startTime + ros::Duration(4.0), 1.0);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(2.9));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(2.9));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.calcUntil(startTime + DELAY + ros::Duration(3.5));
+  wrapper.doStepsUntil(startTime + DELAY + ros::Duration(3.5));
   EXPECT_NEAR(1.125, wrapper.getOutputValue("y"), EPSILON);
 }
 

@@ -111,8 +111,7 @@ std::vector<std::string> getVariableNamesFromFMU(
 
 FMIAdapter::FMIAdapter(const std::string& fmuPath, ros::Duration stepSize, bool interpolateInput,
                        const std::string& tmpPath)
-    : fmuPath_(fmuPath), stepSize_(stepSize), stepSizeAsDouble_(stepSize.toSec()), interpolateInput_(interpolateInput),
-      tmpPath_(tmpPath) {
+    : fmuPath_(fmuPath), stepSize_(stepSize), interpolateInput_(interpolateInput), tmpPath_(tmpPath) {
   if (stepSize == ros::Duration(0.0)) {
     // Use step-size from FMU. See end of ctor.
   } else if (stepSize < ros::Duration(0.0)) {
@@ -190,12 +189,11 @@ FMIAdapter::FMIAdapter(const std::string& fmuPath, ros::Duration stepSize, bool 
   }
 
   if (stepSize == ros::Duration(0.0)) {
-    stepSizeAsDouble_ = fmi2_import_get_default_experiment_step(fmu_);
-    stepSize_ = ros::Duration(stepSizeAsDouble_);
+    stepSize_ = ros::Duration(fmi2_import_get_default_experiment_step(fmu_));
     if (stepSize_ <= ros::Duration(0.0)) {
       throw std::invalid_argument("Default experiment step size from FMU is not positive!");
     }
-    ROS_INFO("No step-size argument given. Using default from FMU, which is %fs.", stepSizeAsDouble_);
+    ROS_INFO("No step-size argument given. Using default from FMU, which is %fs.", stepSize_.toSec());
   }
 }
 
@@ -320,7 +318,63 @@ void FMIAdapter::exitInitializationMode(ros::Time simulationTime) {
 }
 
 
-void FMIAdapter::calcUntil(ros::Time simulationTime) {
+ros::Time FMIAdapter::doStep() {
+  if (inInitializationMode_) {
+    throw std::runtime_error("FMU is still in initialization mode!");
+  }
+
+  doStepInternal(stepSize_);
+
+  return getSimulationTimeInternal();
+}
+
+
+ros::Time FMIAdapter::doStep(const ros::Duration& stepSize) {
+  if (stepSize <= ros::Duration(0.0)) {
+    throw std::invalid_argument("Step size must be positive!");
+  }
+  if (inInitializationMode_) {
+    throw std::runtime_error("FMU is still in initialization mode!");
+  }
+
+  doStepInternal(stepSize);
+
+  return getSimulationTimeInternal();
+}
+
+
+void FMIAdapter::doStepInternal(const ros::Duration& stepSize) {
+  for (fmi2_import_variable_t* variable : getInputVariables()) {  // TODO(Ralph) Avoid creation of std::vector here.
+    std::map<ros::Time, double>& inputValues = inputValuesByVariable_[variable];
+    assert(!inputValues.empty() && (inputValues.begin()->first - fmuTimeOffset_).toSec() <= fmuTime_);
+    while (inputValues.size() >= 2 && (std::next(inputValues.begin())->first - fmuTimeOffset_).toSec() <= fmuTime_) {
+      inputValues.erase(inputValues.begin());
+    }
+    assert(!inputValues.empty() && (inputValues.begin()->first - fmuTimeOffset_).toSec() <= fmuTime_);
+    double value = inputValues.begin()->second;
+    if (interpolateInput_ && inputValues.size() > 1) {
+      double t0 = (inputValues.begin()->first - fmuTimeOffset_).toSec();
+      double t1 = (std::next(inputValues.begin())->first - fmuTimeOffset_).toSec();
+      double weight = (t1 - fmuTime_) / (t1 - t0);
+      double x0 = value;
+      double x1 = std::next(inputValues.begin())->second;
+      value = weight * x0 + (1.0 - weight) * x1;
+    }
+
+    fmi2_value_reference_t valueReference = fmi2_import_get_variable_vr(variable);
+    fmi2_import_set_real(fmu_, &valueReference, 1, &value);
+  }
+
+  const fmi2_boolean_t doStep = fmi2_true;
+  fmi2_status_t fmiStatus = fmi2_import_do_step(fmu_, fmuTime_, stepSize.toSec(), doStep);
+  if (fmiStatus != fmi2_status_ok) {
+    throw std::runtime_error("fmi2_import_do_step failed!");
+  }
+  fmuTime_ += stepSize.toSec();
+}
+
+
+ros::Time FMIAdapter::doStepsUntil(const ros::Time& simulationTime) {
   if (inInitializationMode_) {
     throw std::runtime_error("FMU is still in initialization mode!");
   }
@@ -331,35 +385,11 @@ void FMIAdapter::calcUntil(ros::Time simulationTime) {
     throw std::invalid_argument("Given time is before current simulation time!");
   }
 
-  while (fmuTime_ + stepSizeAsDouble_ / 2.0 < targetFMUTime) {
-    for (fmi2_import_variable_t* variable : getInputVariables()) {  // TODO(Ralph) Avoid creation of std::vector here.
-      std::map<ros::Time, double>& inputValues = inputValuesByVariable_[variable];
-      assert(!inputValues.empty() && (inputValues.begin()->first - fmuTimeOffset_).toSec() <= fmuTime_);
-      while (inputValues.size() >= 2 && (std::next(inputValues.begin())->first - fmuTimeOffset_).toSec() <= fmuTime_) {
-        inputValues.erase(inputValues.begin());
-      }
-      assert(!inputValues.empty() && (inputValues.begin()->first - fmuTimeOffset_).toSec() <= fmuTime_);
-      double value = inputValues.begin()->second;
-      if (interpolateInput_ && inputValues.size() > 1) {
-        double t0 = (inputValues.begin()->first - fmuTimeOffset_).toSec();
-        double t1 = (std::next(inputValues.begin())->first - fmuTimeOffset_).toSec();
-        double weight = (t1 - fmuTime_) / (t1 - t0);
-        double x0 = value;
-        double x1 = std::next(inputValues.begin())->second;
-        value = weight * x0 + (1.0 - weight) * x1;
-      }
-
-      fmi2_value_reference_t valueReference = fmi2_import_get_variable_vr(variable);
-      fmi2_import_set_real(fmu_, &valueReference, 1, &value);
-    }
-
-    const fmi2_boolean_t doStep = fmi2_true;
-    fmi2_status_t fmiStatus = fmi2_import_do_step(fmu_, fmuTime_, stepSizeAsDouble_, doStep);
-    if (fmiStatus != fmi2_status_ok) {
-      throw std::runtime_error("fmi2_import_do_step failed!");
-    }
-    fmuTime_ += stepSizeAsDouble_;
+  while (fmuTime_ + stepSize_.toSec() / 2.0 < targetFMUTime) {
+    doStepInternal(stepSize_);
   }
+
+  return getSimulationTimeInternal();
 }
 
 
@@ -368,7 +398,7 @@ ros::Time FMIAdapter::getSimulationTime() const {
     throw std::runtime_error("FMU is still in initialization mode!");
   }
 
-  return ros::Time(fmuTime_) + fmuTimeOffset_;
+  return getSimulationTimeInternal();
 }
 
 

@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
 
   ros::Timer timer = n.createTimer(ros::Duration(0.01), [&](const ros::TimerEvent& event) {
     if (adapter.getSimulationTime() < event.current_expected) {
-      adapter.calcUntil(event.current_expected);
+      adapter.doStepsUntil(event.current_expected);
     } else {
       ROS_INFO("Simulation time %f is greater than timer's time %f. Is your step size to large?",
                adapter.getSimulationTime().toSec(), event.current_expected.toSec());

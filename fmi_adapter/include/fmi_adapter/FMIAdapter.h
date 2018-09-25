@@ -84,10 +84,10 @@ class FMIAdapter {
   /// Returns the names of all parameters of the wrapped FMU in the FMI Library's internal representation.
   std::vector<std::string> getParameterNames() const;
 
-  /// Stores a value for the given variable to be considered by calcUntil(..) at the given time of the FMU simulation.
+  /// Stores a value for the given variable to be considered by doStep*(..) at the given time of the FMU simulation.
   void setInputValue(fmi2_import_variable_t* variable, ros::Time time, double value);
 
-  /// Stores a value for the variable with the given name to be considered by calcUntil(..) at the given
+  /// Stores a value for the variable with the given name to be considered by doStep*(..) at the given
   /// time of the FMU simulation.
   void setInputValue(std::string variableName, ros::Time time, double value);
 
@@ -100,16 +100,24 @@ class FMIAdapter {
 
   /// Exits the initialization mode and starts the simulation of the wrapped FMU. Uses the given timestamp
   /// as start time for the simulation whereas the FMU internally starts at time 0.
-  /// All times passed to setValue(..) and calcUntil(..) are translated correspondingly.
+  /// All times passed to setValue(..) and doStep*(..) are translated correspondingly.
   void exitInitializationMode(ros::Time simulationTime);
+
+  /// Performs one simulation step using the configured step size and returns the current simulation time.
+  ros::Time doStep();
+
+  /// Performs one simulation step using the given step size and returns the current simulation time.
+  ros::Time doStep(const ros::Duration& stepSize);
 
   /// Advances the simulation of the wrapped FMU until the given point in time (modulo step-size).
   /// In detail, the simulation is performed iteratively using the configured step-size. Before each simulation step
   /// the relevant input values passed previously by setInputValue(..) are set depending on the given timestamps.
-  void calcUntil(ros::Time simulationTime);
+  ros::Time doStepsUntil(const ros::Time& simulationTime);
 
-  /// Returns the current simulation time, which is given by the argument of the last calcUntil(..) call modulo
-  /// step-size.
+  /// This function has been replaced by doStepsUntil.
+  __attribute__((deprecated)) void calcUntil(ros::Time simulationTime) { doStepsUntil(simulationTime); }
+
+  /// Returns the current simulation time.
   ros::Time getSimulationTime() const;
 
   /// Returns the current value of the given output variable.
@@ -140,9 +148,6 @@ class FMIAdapter {
   /// Step size for the FMU simulation.
   ros::Duration stepSize_;
 
-  /// Step size as double value for the FMU simulation.
-  double stepSizeAsDouble_;
-
   /// States whether between input values should be considered as continuous, piecewise linear
   /// signal (true) or as non-continuous, piecewise constant signal (false).
   bool interpolateInput_;
@@ -155,7 +160,7 @@ class FMIAdapter {
 
   bool inInitializationMode_{true};
 
-  /// Offset between the FMU's simulation time and the ROS-based simulation time for calcUntil(..) and setValue(..)
+  /// Offset between the FMU's simulation time and the ROS-based simulation time for doStep*(..) and setValue(..)
   ros::Duration fmuTimeOffset_{0.0};
 
   /// The current FMU's simulation time. It is fmuTime_ = simulationTime_ - fmuTimeOffset_.
@@ -179,6 +184,13 @@ class FMIAdapter {
 
   /// Stores the mapping from timestamps to variable values for the FMU simulation.
   std::map<fmi2_import_variable_t*, std::map<ros::Time, double>> inputValuesByVariable_{};
+
+  /// Performs one simulation step using the given step size. Argument and state w.r.t. initialization mode
+  /// are not checked.
+  void doStepInternal(const ros::Duration& stepSize);
+
+  /// Returns the current simulation time. The state w.r.t. initialization mode is not checked.
+  ros::Time getSimulationTimeInternal() const { return ros::Time(fmuTime_) + fmuTimeOffset_; }
 };
 
 }  // namespace fmi_adapter
