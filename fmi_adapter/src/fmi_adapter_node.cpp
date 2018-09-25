@@ -64,7 +64,10 @@ int main(int argc, char** argv) {
 
   adapter.exitInitializationMode(ros::Time::now());
 
-  ros::Timer timer = n.createTimer(ros::Duration(0.01), [&](const ros::TimerEvent& event) {
+  double updatePeriod = 0.01;  // Default is 0.01s
+  n.getParam("update_period", updatePeriod);
+
+  ros::Timer timer = n.createTimer(ros::Duration(updatePeriod), [&](const ros::TimerEvent& event) {
     if (adapter.getSimulationTime() < event.current_expected) {
       adapter.doStepsUntil(event.current_expected);
     } else {
