@@ -25,9 +25,6 @@
 #include "fmi_adapter/FMIAdapter.h"
 
 
-const double DEFAULT_STEP_SIZE = 0.001;  // 1ms
-
-
 int main(int argc, char** argv) {
   ros::init(argc, argv, "fmi_adapter_node");
   ros::NodeHandle n("~");
@@ -38,7 +35,7 @@ int main(int argc, char** argv) {
     throw std::runtime_error("Parameter 'fmu_path' not specified!");
   }
 
-  double stepSizeAsDouble = DEFAULT_STEP_SIZE;
+  double stepSizeAsDouble = 0.0;
   n.getParam("step_size", stepSizeAsDouble);
   ros::Duration stepSize(stepSizeAsDouble);
 

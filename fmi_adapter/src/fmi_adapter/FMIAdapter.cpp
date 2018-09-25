@@ -113,7 +113,9 @@ FMIAdapter::FMIAdapter(const std::string& fmuPath, ros::Duration stepSize, bool 
                        const std::string& tmpPath)
     : fmuPath_(fmuPath), stepSize_(stepSize), stepSizeAsDouble_(stepSize.toSec()), interpolateInput_(interpolateInput),
       tmpPath_(tmpPath) {
-  if (stepSize <= ros::Duration(0.0)) {
+  if (stepSize == ros::Duration(0.0)) {
+    // Use step-size from FMU. See end of ctor.
+  } else if (stepSize < ros::Duration(0.0)) {
     throw std::invalid_argument("Step size must be positive!");
   }
   if (!helpers::canReadFromFile(fmuPath)) {
@@ -185,6 +187,15 @@ FMIAdapter::FMIAdapter(const std::string& fmuPath, ros::Duration stepSize, bool 
   fmiStatus = fmi2_import_enter_initialization_mode(fmu_);
   if (fmiStatus != fmi2_status_ok) {
     throw std::runtime_error("fmi2_import_enter_initialization_mode failed!");
+  }
+
+  if (stepSize == ros::Duration(0.0)) {
+    stepSizeAsDouble_ = fmi2_import_get_default_experiment_step(fmu_);
+    stepSize_ = ros::Duration(stepSizeAsDouble_);
+    if (stepSize_ <= ros::Duration(0.0)) {
+      throw std::invalid_argument("Default experiment step size from FMU is not positive!");
+    }
+    ROS_INFO("No step-size argument given. Using default from FMU, which is %fs.", stepSizeAsDouble_);
   }
 }
 

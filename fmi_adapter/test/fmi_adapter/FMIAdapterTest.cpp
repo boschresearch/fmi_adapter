@@ -54,6 +54,24 @@ class FMIAdapterTest : public ::testing::Test {
 #ifdef __x86_64__
 
 
+TEST_F(FMIAdapterTest, ctorWithImplicitDefaultExperimentStepSize) {
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
+  EXPECT_EQ(wrapper.getStepSize(), ros::Duration(0.001));
+}
+
+
+TEST_F(FMIAdapterTest, ctorWithExplicitDefaultExperimentStepSize) {
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu", ros::Duration(0.0));
+  EXPECT_EQ(wrapper.getStepSize(), ros::Duration(0.001));
+}
+
+
+TEST_F(FMIAdapterTest, ctorWithExplicitStepSize) {
+  fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu", ros::Duration(0.004));
+  EXPECT_EQ(wrapper.getStepSize(), ros::Duration(0.004));
+}
+
+
 TEST_F(FMIAdapterTest, canHandleVariableCommunicationStepSize) {
   fmi_adapter::FMIAdapter wrapper(test_FMUs_path_ + "TransportDelay.fmu");
   EXPECT_FALSE(wrapper.canHandleVariableCommunicationStepSize());

@@ -37,8 +37,9 @@ namespace fmi_adapter {
 /// This class also provides concenvience functions to read parameters and initial values from ROS parameters.
 class FMIAdapter {
  public:
-  /// This ctor creates an instance using the FMU from the given path.
-  explicit FMIAdapter(const std::string& fmuPath, ros::Duration stepSize = ros::Duration(0.001),
+  /// This ctor creates an instance using the FMU from the given path. If the step-size argument
+  /// is zero, the default experiment step-size given in the FMU is used.
+  explicit FMIAdapter(const std::string& fmuPath, ros::Duration stepSize = ros::Duration(0.0),
                       bool interpolateInput = true, const std::string& tmpPath = "");
 
   FMIAdapter(const FMIAdapter& other) = delete;
@@ -137,10 +138,10 @@ class FMIAdapter {
   const std::string fmuPath_;
 
   /// Step size for the FMU simulation.
-  const ros::Duration stepSize_;
+  ros::Duration stepSize_;
 
   /// Step size as double value for the FMU simulation.
-  const double stepSizeAsDouble_;
+  double stepSizeAsDouble_;
 
   /// States whether between input values should be considered as continuous, piecewise linear
   /// signal (true) or as non-continuous, piecewise constant signal (false).
