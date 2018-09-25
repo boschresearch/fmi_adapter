@@ -110,7 +110,7 @@ class FMIAdapter {
 
   /// Returns the current simulation time, which is given by the argument of the last calcUntil(..) call modulo
   /// step-size.
-  ros::Time getSimulationTime();
+  ros::Time getSimulationTime() const;
 
   /// Returns the current value of the given output variable.
   double getOutputValue(fmi2_import_variable_t* variable) const;

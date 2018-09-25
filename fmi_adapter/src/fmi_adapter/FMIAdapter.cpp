@@ -363,7 +363,7 @@ void FMIAdapter::calcUntil(ros::Time simulationTime) {
 }
 
 
-ros::Time FMIAdapter::getSimulationTime() {
+ros::Time FMIAdapter::getSimulationTime() const {
   if (inInitializationMode_) {
     throw std::runtime_error("FMU is still in initialization mode!");
   }
