@@ -1,11 +1,11 @@
 <launch>
-  <node name="damped_pendulum" pkg="fmi_adapter" type="node">
+  <node name="damped_pendulum" pkg="fmi_adapter" type="node" output="screen" >
     <param name="fmu_path" value="$(find fmi_adapter_examples)/DampedPendulum.fmu" />
     <param name="l" value="25.0" /> <!-- Set pendulum length to 25m -->
     <param name="d" value="0.01" /> <!-- Reduce damping ratio (default is 0.1) -->
   </node>
 
-  <node name="transport_delay" pkg="fmi_adapter" type="node">
+  <node name="transport_delay" pkg="fmi_adapter" type="node" output="screen">
     <remap from="/transport_delay/x" to="/damped_pendulum/a" />
     <param name="fmu_path" value="$(find fmi_adapter_examples)/TransportDelay.fmu" />
     <param name="d" value="2.33" /> <!-- Set transport delay to 2.33s -->
