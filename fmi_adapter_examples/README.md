@@ -17,7 +17,6 @@ Both launch files also open rqt_plot to visualize the angle(s).
 ![Plot created by damped_pendulum_with_transport_delay.launch](doc/damped_pendulum_with_transport_delay_in_rqt_plot.png)
 
 
-
 ## Create and simulate your own DampedPendulum.fmu
 
 There are several modeling tools that support the Modelica language and provide FMU export. Examples are [Dymola](http://www.3ds.com/products-services/catia/products/dymola), [JModelica](https://jmodelica.org/), and [OpenModelica](https://www.openmodelica.org/).

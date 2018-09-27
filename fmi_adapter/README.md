@@ -18,9 +18,9 @@ fmi_adapter provides a ROS node ([fmi_adapter_node.cpp](src/fmi_adapter_node.cpp
 
 The fmi_adapter_node also searches for counterparts for each FMU parameter and variable in the [ROS parameter server](http://wiki.ros.org/Parameter%20Server) and initializes the FMU correspondingly.
 
-For this purpose, this package provide a launch file with argument _fmu\_path_. Simply call
+For this purpose, this package provide a launch file with argument *fmu\_path*. Simply call
 
-```
+```Bash
 roslaunch fmi_adapter fmi_adapter_node.launch fmu_path:=[PathToTheFMUFile]
 ```
 
@@ -33,7 +33,7 @@ fmi_adapter provides a library with convenience functions based on common ROS ty
 
 ![fmi_adapter in application node](doc/high-level_architecture_with_application_node.png)
 
-For parsing the XML description of an FMU and for running the FMU's solver, fmi_adapter uses the C library [FMI Library](http://www.jmodelica.org/FMILibrary). This library is downloaded, compiled and linked in the CMakeLists.txt of this package using cmake's _externalproject\_add_ command.
+For parsing the XML description of an FMU and for running the FMU's solver, fmi_adapter uses the C library [FMI Library](http://www.jmodelica.org/FMILibrary). This library is downloaded, compiled and linked in the CMakeLists.txt of this package using cmake's *externalproject\_add* command.
 
 
 ## Running an FMU inside a ROS node or library
@@ -42,20 +42,20 @@ In the following, we give some code snippets how to load and run an FMU file fro
 
 **Step 1:** Include the FMIAdapter.h from the fmi_adapter package in your C++ code.
 
-```
+```C++
 #include "fmi_adapter/FMIAdapter.h"
 ```
 
 **Step 2:** Instantiate the adapter class with the path to the FMU file and the desired simulation step size. If the step-size argument is omitted, the default step size specified in the FMU file will be used.
 
-```
+```C++
 ros::Duration stepSize(0.001);
 fmi_adapter::FMIAdapter adapter(fmuPath, stepSize);
 ```
 
 **Step 3:** Create subscribers or timers to set the FMU's input values. For example:
 
-```
+```C++
 ros::Subscriber subscriber =
     nHandle.subscribe<std_msgs::Float64>("angle_x", 1000, [&adapter](const std_msgs::Float64::ConstPtr& msg) {
       adapter.setInputValue("angleX", ros::Time::now(), msg->data);
@@ -68,7 +68,7 @@ Use `adapter.getInputVariableNames()` to get a list of all input variables.
 
 **Step 4:** Create a timer or subscriber that triggers the simulation of the FMU using `adapter.doStepsUntil(..)`. For example:
 
-```
+```C++
 ros::Timer timer = nHandle.createTimer(ros::Duration(0.01), [&](const ros::TimerEvent& event) {
     adapter.doStepsUntil(event.current_expected);
     double y = adapter.getOutputValue("angleY");
@@ -80,7 +80,7 @@ Use `adapter.getOutputVariableNames()` to get a list of all output variables.
 
 **Step 5:** Set parameters and initial values of the FMU:
 
-```
+```C++
 adapter.setInitialValue("dampingParam", 0.21);
 adapter.setInitialValue("angleX", 1.3);
 ```
@@ -89,7 +89,7 @@ The function `adapter.initializeFromROSParameters(nodeHandle)` may be used to in
 
 **Step 6:** Just before starting the spin thread, exit the FMU's initialization mode and set the ROS time that refers to the FMU's internal timepoint 0.0.
 
-```
+```C++
 adapter.exitInitializationMode(ros::Time::now());
 ros::spin();
 ```
