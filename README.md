@@ -2,12 +2,12 @@
 
 This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS nodes. FMUs are defined in the [FMI standard](http://fmi-standard.org/) and can be created with a variety of modeling and simulation tools, including [Dymola](http://www.3ds.com/products-services/catia/products/dymola), [MATLAB/Simulink](https://www.mathworks.com/products/simulink.html), [OpenModelica](https://www.openmodelica.org/), [SimulationX](https://www.simulationx.de/), and [Wolfram System Modeler](http://www.wolfram.com/system-modeler/).
 
-fmi_adapter provides a library with convenience functions based on common ROS types to load an FMU during runtime, retrieve the input, output, and parameter names,  set timestamped input values, run the FMU's numeric solver, and query the resulting output.
+fmi_adapter provides a library with convenience functions based on common ROS types to load an FMU during runtime, retrieve the input, output, and parameter names, set timestamped input values, run the FMU's numeric solver, and query the resulting output.
 
 In detail, this repository contains two ROS packages:
 
 *   [fmi_adapter](fmi_adapter/) provides a generic library and ROS node for loading and running FMUs in ROS-based applications.
-*   [fmi_adapter_examples](fmi_adapter_examples/) provides a tiny example for the use of fmi_adapter.
+*   [fmi_adapter_examples](fmi_adapter_examples/) provides small examples for the use of fmi_adapter.
 
 Technical information on the interfaces and use of these packages is given in the README.md files in the corresponding subfolders.
 
