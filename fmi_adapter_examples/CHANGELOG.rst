@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.2 (2018-10-12)
+------------------
 * Added two sample FMUs with corresponding launch files.
 
 1.0.1 (2018-07-16)

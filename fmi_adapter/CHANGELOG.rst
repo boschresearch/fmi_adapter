@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.2 (2018-10-12)
+------------------
 * Added parameter to configure update period of fmi_adapter node.
 * Introduced functions for single step and replaced calcUntil with doStepsUntil.
 * Enable automatic use of default experiment step-size from FMU in FMIAdapter ctor.
