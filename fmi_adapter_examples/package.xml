@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>fmi_adapter_examples</name>
+  <version>0.0.1</version>
+  <description>Provides small examples for use of the fmi_adapter package</description>
+
+  <maintainer email="ralph.lange@de.bosch.com">Ralph Lange</maintainer>
+
+  <license>Apache License 2.0</license>
+
+  <url type="website">http://wiki.ros.org/fmi_adapter</url>
+  <url type="repository">https://github.com/boschresearch/fmi_adapter_ros2</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>fmi_adapter</build_depend>
+
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>fmi_adapter</exec_depend>
+
+  <test_depend>ament_cmake_pytest</test_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>launch</test_depend>
+  <test_depend>launch_testing</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
