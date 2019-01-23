@@ -30,7 +30,11 @@
 #include <dirent.h>
 #include <unistd.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <fmilib.h>
+#pragma GCC diagnostic pop
 
 namespace fmi_adapter
 {

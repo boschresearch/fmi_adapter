@@ -35,7 +35,7 @@ add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/FMIAdapter.cpp
   src/${PROJECT_NAME}/FMIAdapterNode.cpp
 )
-target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
+target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> PRIVATE $<BUILD_INTERFACE:${FMILibraryProject_INCLUDE_DIR}>)
 ament_target_dependencies(${PROJECT_NAME}
   "rclcpp"
   "rclcpp_lifecycle"
