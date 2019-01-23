@@ -16,6 +16,7 @@
 
   <build_depend>fmi_adapter</build_depend>
 
+  <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>fmi_adapter</exec_depend>
 
