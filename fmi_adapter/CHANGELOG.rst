@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2019-01-23)
+------------------
 * Fixed missing testing and launch dependencies.
 
 0.1.0 (2019-01-18)
