@@ -27,13 +27,6 @@
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
 #include <std_msgs/msg/float64.hpp>
 
-struct fmi_xml_context_t;
-typedef struct fmi_xml_context_t fmi_import_context_t;
-struct fmi2_import_t;
-struct fmi2_xml_variable_t;
-typedef struct fmi2_xml_variable_t fmi2_import_variable_t;
-struct jm_callbacks;
-
 namespace fmi_adapter
 {
 
