@@ -2,6 +2,11 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Cleaned up dependency entries in package.xml.
+* Added explicit target dependencies for parallel building.
+
 0.1.1 (2019-01-23)
 ------------------
 * Fixed missing testing and launch dependencies.

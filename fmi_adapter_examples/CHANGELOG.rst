@@ -2,6 +2,10 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Cleaned up dependency entries in package.xml.
+
 0.1.1 (2019-01-23)
 ------------------
 * Fixed missing testing and launch dependencies.
