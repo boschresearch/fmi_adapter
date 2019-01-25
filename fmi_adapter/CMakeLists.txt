@@ -28,13 +28,13 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(rcutils REQUIRED)
-find_package(rmw REQUIRED)
 find_package(std_msgs REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/FMIAdapter.cpp
   src/${PROJECT_NAME}/FMIAdapterNode.cpp
 )
+add_dependencies(${PROJECT_NAME} FMILibraryProject)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> PRIVATE $<BUILD_INTERFACE:${FMILibraryProject_INCLUDE_DIR}>)
 ament_target_dependencies(${PROJECT_NAME}
   "rclcpp"
@@ -61,9 +61,11 @@ if(BUILD_TESTING)
   target_include_directories(${PROJECT_NAME}_test PRIVATE include)
   target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
   ament_target_dependencies(${PROJECT_NAME}_test
+    ${PROJECT_NAME}
     "rclcpp"
-    "std_msgs"
+    "rclcpp_lifecycle"
     "rcutils"
+    "std_msgs"
   )
 
   find_package(ament_lint_auto REQUIRED)
@@ -75,5 +77,6 @@ endif()
 ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME})
 ament_export_dependencies(rclcpp)
+ament_export_dependencies(rclcpp_lifecycle)
 ament_export_dependencies(std_msgs)
 ament_package()
