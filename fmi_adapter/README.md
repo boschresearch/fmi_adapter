@@ -86,7 +86,7 @@ adapter->setInitialValue("dampingParam", 0.21);
 adapter->setInitialValue("angleX", 1.3);
 ```
 
-The function `adapter->initializeFromROSParameters(nodeHandle)` may be used to initialize all parameters from the corresponding ROS parameters. Please note that all characters in the FMU parameter names that are not supported by ROS are replaced by an '\_', cf. `FMIAdapter::rosifyName(name)`.
+The function `adapter->initializeFromROSParameters(get_node_parameters_interface())` may be used to initialize all parameters from the corresponding ROS parameters. Please note that all characters in the FMU parameter names that are not supported by ROS are replaced by an '\_', cf. `FMIAdapter::rosifyName(name)`.
 
 **Step 6:** As last setup step, exit the FMU's initialization mode and set the ROS time that refers to the FMU's internal timepoint 0.0.
 
