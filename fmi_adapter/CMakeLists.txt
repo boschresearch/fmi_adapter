@@ -43,7 +43,7 @@ ament_target_dependencies(${PROJECT_NAME}
 )
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_fmilib dl)
 install(DIRECTORY include/ DESTINATION include)
-install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 
 add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
 target_link_libraries(${PROJECT_NAME}_node ${PROJECT_NAME})
