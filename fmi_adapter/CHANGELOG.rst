@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.3 (2019-02-01)
+------------------
 * Fixed install target location of shared library.
 * Improved code snippets on use of FMIAdapter class in README.
 
