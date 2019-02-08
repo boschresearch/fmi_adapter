@@ -1,18 +1,13 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
+
 project(fmi_adapter_examples)
 
-find_package(catkin REQUIRED)
+find_package(ament_cmake REQUIRED)
 
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES fmi_adapter_examples
-#  CATKIN_DEPENDS fmi_adapter roscpp
-#  DEPENDS system_lib
-)
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+install(DIRECTORY share DESTINATION share/${PROJECT_NAME}/)
 
-install(DIRECTORY launch/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-)
-install(DIRECTORY share/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+ament_export_libraries(${PROJECT_NAME})
+ament_export_dependencies(fmi_adapter)
+ament_package()
+

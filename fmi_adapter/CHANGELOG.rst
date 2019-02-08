@@ -2,18 +2,20 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.2 (2018-10-12)
+0.1.3 (2019-02-01)
 ------------------
-* Added parameter to configure update period of fmi_adapter node.
-* Introduced functions for single step and replaced calcUntil with doStepsUntil.
-* Enable automatic use of default experiment step-size from FMU in FMIAdapter ctor.
-* Added function to query default experiment step-size given in the FMU.
-* Added step_size parameter and function to query whether the FMU supports a variable communication step size.
+* Fixed install target location of shared library.
+* Improved code snippets on use of FMIAdapter class in README.
 
-1.0.1 (2018-07-16)
+0.1.2 (2019-01-25)
 ------------------
-* Throwing runtime_error in case of failed fmi2 function call.
+* Cleaned up dependency entries in package.xml.
+* Added explicit target dependencies for parallel building.
 
-1.0.0 (2018-07-13)
+0.1.1 (2019-01-23)
 ------------------
-* Initial version.
+* Fixed missing testing and launch dependencies.
+
+0.1.0 (2019-01-18)
+------------------
+* Initial version for ROS 2, ported from https://github.com/boschresearch/fmi_adapter/

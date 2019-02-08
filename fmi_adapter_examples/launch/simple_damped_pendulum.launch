@@ -1,7 +1,0 @@
-<launch>
-  <include file="$(find fmi_adapter)/launch/fmi_adapter_node.launch">
-    <arg name="fmu_path" value="$(find fmi_adapter_examples)/DampedPendulum.fmu" />
-  </include>
-
-  <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" args="/fmi_adapter_node/a" />
-</launch>

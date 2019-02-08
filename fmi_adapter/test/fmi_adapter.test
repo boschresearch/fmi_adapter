@@ -1,5 +1,0 @@
-<launch>
-  <test pkg="fmi_adapter" type="fmi_adapter_test" test-name="fmi_adapter_test">
-   <param name="test_fmus_path" type="str" value="$(find fmi_adapter)/test/fmu/" />
-  </test>
-</launch>

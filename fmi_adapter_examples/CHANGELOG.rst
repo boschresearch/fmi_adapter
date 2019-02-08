@@ -2,14 +2,17 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.2 (2018-10-12)
+0.1.3 (2019-02-01)
 ------------------
-* Added two sample FMUs with corresponding launch files.
 
-1.0.1 (2018-07-16)
+0.1.2 (2019-01-25)
 ------------------
-* Throwing runtime_error in case of failed fmi2 function call in FMIAdapter.
+* Cleaned up dependency entries in package.xml.
 
-1.0.0 (2018-07-13)
+0.1.1 (2019-01-23)
 ------------------
-* Initial version.
+* Fixed missing testing and launch dependencies.
+
+0.1.0 (2019-01-18)
+------------------
+* Initial version for ROS 2, ported from https://github.com/boschresearch/fmi_adapter/
