@@ -19,7 +19,7 @@ The software is not ready for production use. It has neither been developed nor 
 
 ## Requirements, how to build, test, install, use, etc.
 
-Clone the repository into a ROS workspace and build it using [catkin](http://wiki.ros.org/catkin).
+Clone the repository into a ROS workspace and build it using `catkin build` from the [Catkin Command Line Tools](https://catkin-tools.readthedocs.io/). For correct installation of the FMUs in the examples package, use a dedicated install space by calling `catkin config --install` first.
 
 
 ## License
