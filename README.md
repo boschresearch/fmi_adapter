@@ -39,7 +39,7 @@ For a list of other open source components included in fmi_adapter, see the file
     *   The CMakeLists.txt and package description files are checked with [catkin_lint](http://wiki.ros.org/catkin_lint).
 *   Unit tests:
     *   Unit tests based on [rostest](http://wiki.ros.org/rostest)+[gtest](https://github.com/google/googletest) are located in the [fmi_adapter/test](fmi_adapter/test) folder.
-    *   The unit tests use an FMU created with the [FMU SDK](https://www.qtronic.de/en/fmusdk.html) by QTronic GmbH, cf. [3rd-party-licenses.txt](3rd-party-licenses.txt).
+    *   The unit tests use an FMU created with the [FMU SDK](https://www.qtronic.de/en/fmu-sdk/) by QTronic GmbH, cf. [3rd-party-licenses.txt](3rd-party-licenses.txt).
 
 The [pre-commit.hook](pre-commit.hook) file provides a client-side commit hook to check the conformance with the coding style and the linters during every commit. In case of a finding by clang-format or one of the linters, the commit will be rejected. To set this client-side commit hook up, please run `ln -s ../../pre-commit.hook .git/hooks/pre-commit` from the local repository root.
 

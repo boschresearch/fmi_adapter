@@ -18,7 +18,7 @@ license.
 
 Name:      FMU SDK (FmuSdk)
 Version:   2.0.5
-URL:       https://www.qtronic.de/en/fmusdk.html
+URL:       https://www.qtronic.de/en/fmu-sdk/
 License:   2-clause BSD license
 Copyright: Copyright © 2008-2018, QTronic GmbH
 
