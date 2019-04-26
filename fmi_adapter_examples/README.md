@@ -3,7 +3,7 @@ General information about this repository, including legal information, build in
 
 # The fmi_adapter_examples package
 
-This [ROS 2](http://www.ros.org/) package provides few examples for the use of the fmi_adapter package. It contains two FMU files DampedPendulum.fmu and TransportDelay.fmu (both created with the [FMU SDK](https://www.qtronic.de/en/fmusdk.html)) and corresponding launch files. Furthermore, it includes a model of a damped pendulum in the [Modelica language](https://www.modelica.org/) to create your own FMU.
+This [ROS 2](http://www.ros.org/) package provides few examples for the use of the fmi_adapter package. It contains two FMU files DampedPendulum.fmu and TransportDelay.fmu (both created with the [FMU SDK](https://www.qtronic.de/en/fmu-sdk/)) and corresponding launch files. Furthermore, it includes a model of a damped pendulum in the [Modelica language](https://www.modelica.org/) to create your own FMU.
 
 
 ## Running the provided sample FMUs

@@ -38,7 +38,7 @@ For a list of other open source components included in fmi_adapter_ros2, see the
 
 The colcon_test tool is used for quality assurances, which includes cpplint, uncrustify, flake8, xmllint and various other tools.
 
-Unit tests based on [gtest](https://github.com/google/googletest) are located in the [fmi_adapter/test](fmi_adapter/test) folder. The unit tests use an FMU created with the [FMU SDK](https://www.qtronic.de/en/fmusdk.html) by QTronic GmbH, cf. [3rd-party-licenses.txt](3rd-party-licenses.txt).
+Unit tests based on [gtest](https://github.com/google/googletest) are located in the [fmi_adapter/test](fmi_adapter/test) folder. The unit tests use an FMU created with the [FMU SDK](https://www.qtronic.de/en/fmu-sdk/) by QTronic GmbH, cf. [3rd-party-licenses.txt](3rd-party-licenses.txt).
 
 
 ## Known issues/limitations
