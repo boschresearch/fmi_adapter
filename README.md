@@ -1,6 +1,6 @@
 # The fmi_adapter repository
 
-[![Build Status](http://build.ros.org/job/Mdev__fmi_adapter__ubuntu_bionic_amd64/badge/icon)](http://build.ros2.org/job/Cdev__fmi_adapter_ros2__ubuntu_bionic_amd64/)
+[![Build Status](http://build.ros.org/job/Mdev__fmi_adapter__ubuntu_bionic_amd64/badge/icon)](http://build.ros.org/job/Mdev__fmi_adapter__ubuntu_bionic_amd64/)
 
 This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS nodes. FMUs are defined in the [FMI standard](http://fmi-standard.org/) and can be created with a variety of modeling and simulation tools, including [Dymola](http://www.3ds.com/products-services/catia/products/dymola), [MATLAB/Simulink](https://www.mathworks.com/products/simulink.html), [OpenModelica](https://www.openmodelica.org/), [SimulationX](https://www.simulationx.de/), and [Wolfram System Modeler](http://www.wolfram.com/system-modeler/).
 
