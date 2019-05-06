@@ -45,13 +45,13 @@ def generate_launch_description():
 
     configure_delay_node = launch.actions.EmitEvent(
         event=launch_ros.events.lifecycle.ChangeState(
-            lifecycle_node_matcher=launch.events.process.matches_action(delay_node),
+            lifecycle_node_matcher=launch.events.matchers.matches_action(delay_node),
             transition_id=lifecycle_msgs.msg.Transition.TRANSITION_CONFIGURE,
         )
     )
 
     activate_delay_node = launch.actions.EmitEvent(event=launch_ros.events.lifecycle.ChangeState(
-        lifecycle_node_matcher=launch.events.process.matches_action(delay_node),
+        lifecycle_node_matcher=launch.events.matchers.matches_action(delay_node),
         transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE))
 
     pendulum_fmu_path = (
@@ -72,12 +72,12 @@ def generate_launch_description():
 
     configure_pendulum_node = launch.actions.EmitEvent(
         event=launch_ros.events.lifecycle.ChangeState(
-            lifecycle_node_matcher=launch.events.process.matches_action(pendulum_node),
+            lifecycle_node_matcher=launch.events.matchers.matches_action(pendulum_node),
             transition_id=lifecycle_msgs.msg.Transition.TRANSITION_CONFIGURE))
 
     activate_pendulum_node = launch.actions.EmitEvent(
         event=launch_ros.events.lifecycle.ChangeState(
-            lifecycle_node_matcher=launch.events.process.matches_action(pendulum_node),
+            lifecycle_node_matcher=launch.events.matchers.matches_action(pendulum_node),
             transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE))
 
     on_inactive_delay_handler = launch.actions.RegisterEventHandler(
