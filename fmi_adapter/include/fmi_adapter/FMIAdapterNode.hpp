@@ -35,7 +35,7 @@ class FMIAdapter;
 class FMIAdapterNode : public rclcpp_lifecycle::LifecycleNode
 {
 public:
-  FMIAdapterNode();
+  explicit FMIAdapterNode(const rclcpp::NodeOptions& options);
 
   RCLCPP_DISABLE_COPY(FMIAdapterNode)
 

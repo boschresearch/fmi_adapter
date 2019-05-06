@@ -16,6 +16,7 @@
 #include <memory>
 
 #include <rclcpp/rclcpp.hpp>
+#include <rclcpp/node_options.hpp>
 
 #include "fmi_adapter/FMIAdapterNode.hpp"
 
@@ -23,7 +24,7 @@ int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
 
-  auto node = std::make_shared<fmi_adapter::FMIAdapterNode>();
+  auto node = std::make_shared<fmi_adapter::FMIAdapterNode>(rclcpp::NodeOptions());
   rclcpp::spin(node->get_node_base_interface());
 
   rclcpp::shutdown();

@@ -26,6 +26,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(rcutils REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -38,12 +39,14 @@ add_dependencies(${PROJECT_NAME} FMILibraryProject)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include> PRIVATE $<BUILD_INTERFACE:${FMILibraryProject_INCLUDE_DIR}>)
 ament_target_dependencies(${PROJECT_NAME}
   "rclcpp"
+  "rclcpp_components"
   "rclcpp_lifecycle"
   "std_msgs"
 )
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_fmilib dl)
 install(DIRECTORY include/ DESTINATION include)
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+rclcpp_components_register_nodes(${PROJECT_NAME} "fmi_adapter::FMIAdapterNode")
 
 add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
 target_link_libraries(${PROJECT_NAME}_node ${PROJECT_NAME})

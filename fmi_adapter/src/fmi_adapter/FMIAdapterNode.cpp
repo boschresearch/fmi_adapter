@@ -23,14 +23,15 @@
 #include <string>
 
 #include <rclcpp/rclcpp.hpp>
+#include <rclcpp_components/register_node_macro.hpp>
 
 #include "fmi_adapter/FMIAdapter.hpp"
 
 namespace fmi_adapter
 {
 
-FMIAdapterNode::FMIAdapterNode()
-: LifecycleNode("fmi_adapter_node")
+FMIAdapterNode::FMIAdapterNode(const rclcpp::NodeOptions& options)
+: LifecycleNode("fmi_adapter_node", options)
 {
   // Nothing to do.
 }
@@ -149,3 +150,5 @@ FMIAdapterNode::on_shutdown(const rclcpp_lifecycle::State &)
 }
 
 }  // namespace fmi_adapter
+
+RCLCPP_COMPONENTS_REGISTER_NODE(fmi_adapter::FMIAdapterNode)
