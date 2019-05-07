@@ -36,11 +36,11 @@ def generate_launch_description():
 
     configure_node = launch.actions.EmitEvent(
         event=launch_ros.events.lifecycle.ChangeState(
-            lifecycle_node_matcher=launch.events.process.matches_action(node),
+            lifecycle_node_matcher=launch.events.matchers.matches_action(node),
             transition_id=lifecycle_msgs.msg.Transition.TRANSITION_CONFIGURE))
 
     activate_node = launch.actions.EmitEvent(event=launch_ros.events.lifecycle.ChangeState(
-        lifecycle_node_matcher=launch.events.process.matches_action(node),
+        lifecycle_node_matcher=launch.events.matchers.matches_action(node),
         transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE))
 
     on_inactive_handler = launch.actions.RegisterEventHandler(
