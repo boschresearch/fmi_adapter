@@ -142,12 +142,16 @@ public:
   /// values. This function may be called only while isInInitializationMode() = true.
   void setInitialValue(const std::string & variableName, double value);
 
+  /// Declares a ROS parameter for each FMU variable, parameter and alias. Note that ROS
+  /// parameter names may use the characters [A-Za-z0-9_] only. Therefore, all other characters
+  /// in an FMU variable name are mapped to '_'. For example, the FMU variable 'dx[2]' is named
+  /// '/my_node_name/dx_2_' as a ROS parameter.
+  void declareROSParameters(
+    rclcpp::node_interfaces::NodeParametersInterface::SharedPtr nodeInterface);
+
   /// Tries to read inital values for each variable (including parameters and aliases) from the
-  /// ROS parameter set. The function only considers private ROS parameters, i.e. parameters that
-  /// have the node name as prefix. Note that ROS parameter names may use the characters
-  /// [A-Za-z0-9_] only. Therefore, all other characters in an FMU variable name are mapped to '_'.
-  /// For example, to pass a value for the FMU variable 'dx[2]', use the ROS parameter
-  /// '/my_node_name/dx_2_'.
+  /// ROS parameter set. This function requires that ROS parameters have been declared for the
+  /// FMU variables, parameters and aliases first using declareROSParameters(..).
   void initializeFromROSParameters(
     rclcpp::node_interfaces::NodeParametersInterface::SharedPtr nodeInterface);
 

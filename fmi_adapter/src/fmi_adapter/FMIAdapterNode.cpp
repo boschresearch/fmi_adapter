@@ -62,6 +62,7 @@ FMIAdapterNode::on_configure(const rclcpp_lifecycle::State &)
   for (const std::string & name : adapter_->getParameterNames()) {
     RCLCPP_DEBUG(get_logger(), "FMU has parameter '%s'", name.c_str());
   }
+  adapter_->declareROSParameters(get_node_parameters_interface());
   adapter_->initializeFromROSParameters(get_node_parameters_interface());
 
   for (const std::string & name : adapter_->getInputVariableNames()) {

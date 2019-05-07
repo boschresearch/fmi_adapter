@@ -15,6 +15,8 @@
 
 #include "fmi_adapter/FMIAdapter.hpp"
 
+#include <cassert>
+#include <cmath>
 #include <cstdlib>
 
 #include <algorithm>
@@ -38,6 +40,8 @@
 
 namespace fmi_adapter
 {
+
+const double PARAMETER_NOT_SET_NAN = std::nan("717");
 
 namespace helpers
 {
@@ -535,6 +539,20 @@ void FMIAdapter::setInitialValue(const std::string & variableName, double value)
 }
 
 
+void FMIAdapter::declareROSParameters(
+  rclcpp::node_interfaces::NodeParametersInterface::SharedPtr nodeInterface)
+{
+  if (nodeInterface == nullptr) {
+    throw std::invalid_argument("Pointer to parameter inferface must not be null!");
+  }
+
+  for (fmi2_import_variable_t * variable : helpers::getVariablesFromFMU(fmu_)) {
+    std::string name = fmi2_import_get_variable_name(variable);
+    name = rosifyName(name);
+    nodeInterface->declare_parameter(name, rclcpp::ParameterValue(PARAMETER_NOT_SET_NAN), rcl_interfaces::msg::ParameterDescriptor());
+  }
+}
+
 void FMIAdapter::initializeFromROSParameters(
   rclcpp::node_interfaces::NodeParametersInterface::SharedPtr nodeInterface)
 {
@@ -549,7 +567,11 @@ void FMIAdapter::initializeFromROSParameters(
     rclcpp::Parameter parameter;
     if (nodeInterface->get_parameter(name, parameter)) {
       value = parameter.as_double();
-      setInitialValue(variable, value);
+      if (std::isnan(value) && *(reinterpret_cast<const uint64_t*>(&PARAMETER_NOT_SET_NAN)) == *(reinterpret_cast<const uint64_t*>(&value))) {
+        // Ignore it.
+      } else {
+        setInitialValue(variable, value);
+      }
     }
   }
 }
