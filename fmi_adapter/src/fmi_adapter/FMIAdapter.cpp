@@ -46,6 +46,14 @@ const double PARAMETER_NOT_SET_NAN = std::nan("717");
 namespace helpers
 {
 
+bool isSpecificNaN(const double d, const double specificNaN)
+{
+  static_assert(sizeof(double) == sizeof(uint64_t), "Platforms with non-64-bit double not supported.");
+  assert(std::isnan(specificNaN));
+
+  return std::isnan(d) && *(reinterpret_cast<const uint64_t*>(&d)) == *(reinterpret_cast<const uint64_t*>(&specificNaN));
+}
+
 bool canWriteToFolder(const std::string & path)
 {
   DIR * dir = opendir(path.c_str());
@@ -567,7 +575,7 @@ void FMIAdapter::initializeFromROSParameters(
     rclcpp::Parameter parameter;
     if (nodeInterface->get_parameter(name, parameter)) {
       value = parameter.as_double();
-      if (std::isnan(value) && *(reinterpret_cast<const uint64_t*>(&PARAMETER_NOT_SET_NAN)) == *(reinterpret_cast<const uint64_t*>(&value))) {
+      if (helpers::isSpecificNaN(value, PARAMETER_NOT_SET_NAN)) {
         // Ignore it.
       } else {
         setInitialValue(variable, value);
