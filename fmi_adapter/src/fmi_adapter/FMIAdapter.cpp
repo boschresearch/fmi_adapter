@@ -48,10 +48,13 @@ namespace helpers
 
 bool isSpecificNaN(const double d, const double specificNaN)
 {
-  static_assert(sizeof(double) == sizeof(uint64_t), "Platforms with non-64-bit double not supported.");
+  static_assert(sizeof(double) == sizeof(uint64_t),
+    "Platforms with non-64-bit double not supported.");
   assert(std::isnan(specificNaN));
 
-  return std::isnan(d) && *(reinterpret_cast<const uint64_t*>(&d)) == *(reinterpret_cast<const uint64_t*>(&specificNaN));
+  return std::isnan(d) &&
+         *(reinterpret_cast<const uint64_t *>(&d)) ==
+         *(reinterpret_cast<const uint64_t *>(&specificNaN));
 }
 
 bool canWriteToFolder(const std::string & path)
@@ -557,7 +560,8 @@ void FMIAdapter::declareROSParameters(
   for (fmi2_import_variable_t * variable : helpers::getVariablesFromFMU(fmu_)) {
     std::string name = fmi2_import_get_variable_name(variable);
     name = rosifyName(name);
-    nodeInterface->declare_parameter(name, rclcpp::ParameterValue(PARAMETER_NOT_SET_NAN), rcl_interfaces::msg::ParameterDescriptor());
+    nodeInterface->declare_parameter(name, rclcpp::ParameterValue(
+        PARAMETER_NOT_SET_NAN), rcl_interfaces::msg::ParameterDescriptor());
   }
 }
 

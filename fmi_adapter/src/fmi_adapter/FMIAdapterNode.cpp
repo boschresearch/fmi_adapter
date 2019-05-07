@@ -32,12 +32,15 @@
 namespace fmi_adapter
 {
 
-FMIAdapterNode::FMIAdapterNode(const rclcpp::NodeOptions& options)
+FMIAdapterNode::FMIAdapterNode(const rclcpp::NodeOptions & options)
 : LifecycleNode("fmi_adapter_node", options)
 {
-  get_node_parameters_interface()->declare_parameter("fmu_path", rclcpp::ParameterValue(""), rcl_interfaces::msg::ParameterDescriptor());
-  get_node_parameters_interface()->declare_parameter("step_size", rclcpp::ParameterValue(0.0), rcl_interfaces::msg::ParameterDescriptor());
-  get_node_parameters_interface()->declare_parameter("update_period", rclcpp::ParameterValue(0.01), rcl_interfaces::msg::ParameterDescriptor());
+  get_node_parameters_interface()->declare_parameter("fmu_path", rclcpp::ParameterValue(
+      ""), rcl_interfaces::msg::ParameterDescriptor());
+  get_node_parameters_interface()->declare_parameter("step_size", rclcpp::ParameterValue(
+      0.0), rcl_interfaces::msg::ParameterDescriptor());
+  get_node_parameters_interface()->declare_parameter("update_period", rclcpp::ParameterValue(
+      0.01), rcl_interfaces::msg::ParameterDescriptor());
 }
 
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
