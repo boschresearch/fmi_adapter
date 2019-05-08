@@ -31,38 +31,82 @@ def generate_launch_description():
         ament_index_python.packages.get_package_share_directory('fmi_adapter_examples') +
         '/share/DampedPendulum.fmu')
 
+    pendulum_node= launch_ros.descriptions.ComposableNode(
+        package='fmi_adapter',
+        node_plugin='fmi_adapter::FMIAdapterNode',
+        node_namespace='/example',
+        node_name='damped_pendulum',
+        parameters=[{
+            'fmu_path': pendulum_fmu_path,
+            'l': 25.0,  # Set pendulum length to 25m.
+            'd': 0.01  # Reduce damping ratio (default is 0.1).
+        }])
+
     delay_fmu_path = (
         ament_index_python.packages.get_package_share_directory('fmi_adapter_examples') +
         '/share/TransportDelay.fmu')
+
+    delay_node = launch_ros.descriptions.ComposableNode(
+        package='fmi_adapter',
+        node_plugin='fmi_adapter::FMIAdapterNode',
+        node_namespace='/example',
+        node_name='transport_delay',
+        parameters=[{
+            'fmu_path': delay_fmu_path,
+            'd': 2.33  # Set transport delay to 2.33s.
+        }])
 
     node = launch_ros.actions.ComposableNodeContainer(
         node_name='fmi_adapter_nodes',
         node_namespace='',
         package='rclcpp_components',
         node_executable='component_container',
-        composable_node_descriptions=[
-            launch_ros.descriptions.ComposableNode(
-                package='fmi_adapter',
-                node_plugin='fmi_adapter::FMIAdapterNode',
-                node_namespace='/damped_pendulum',
-                node_name='damped_pendulum',
-                parameters=[{
-                    'fmu_path': pendulum_fmu_path,
-                    'l': 25.0,  # Set pendulum length to 25m.
-                    'd': 0.01  # Reduce damping ratio (default is 0.1).
-                }]),
-            launch_ros.descriptions.ComposableNode(
-                package='fmi_adapter',
-                node_plugin='fmi_adapter::FMIAdapterNode',
-                node_namespace='/transport_delay',
-                node_name='transport_delay',
-                parameters=[{
-                    'fmu_path': delay_fmu_path,
-                    'd': 2.33  # Set transport delay to 2.33s.
-                }])
-        ],
-        remappings=[('/transport_delay/x', '/damped_pendulum/a')],
+        composable_node_descriptions=[pendulum_node, delay_node],
+        remappings=[('/example/x', '/example/a')],
         output='screen'
     )
 
-    return launch.LaunchDescription([node])
+    configure_delay_node = launch.actions.EmitEvent(
+        event=launch_ros.events.lifecycle.ChangeState(
+            lifecycle_node_matcher=launch.events.matchers.matches_action(pendulum_node),
+            transition_id=lifecycle_msgs.msg.Transition.TRANSITION_CONFIGURE,
+        )
+    )
+
+    activate_delay_node = launch.actions.EmitEvent(event=launch_ros.events.lifecycle.ChangeState(
+        lifecycle_node_matcher=launch_ros.events.lifecycle.matches_node_name("/example/transport_delay"),
+        transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE))
+
+    configure_pendulum_node = launch.actions.EmitEvent(
+        event=launch_ros.events.lifecycle.ChangeState(
+            lifecycle_node_matcher=launch_ros.events.lifecycle.matches_node_name("/example/damped_pendulum"),
+            transition_id=lifecycle_msgs.msg.Transition.TRANSITION_CONFIGURE))
+
+    activate_pendulum_node = launch.actions.EmitEvent(
+        event=launch_ros.events.lifecycle.ChangeState(
+            lifecycle_node_matcher=launch_ros.events.lifecycle.matches_node_name("/example/damped_pendulum"),
+            transition_id=lifecycle_msgs.msg.Transition.TRANSITION_ACTIVATE))
+
+    # on_inactive_delay_handler = launch.actions.RegisterEventHandler(
+    #     launch_ros.event_handlers.OnStateTransition(
+    #         target_lifecycle_node=delay_node, goal_state='inactive',
+    #         entities=[configure_pendulum_node]))
+
+    # on_inactive_pendulum_handler = launch.actions.RegisterEventHandler(
+    #     launch_ros.event_handlers.OnStateTransition(
+    #         target_lifecycle_node=pendulum_node, goal_state='inactive',
+    #         entities=[activate_delay_node]))
+
+    # on_active_delay_handler = launch.actions.RegisterEventHandler(
+    #     launch_ros.event_handlers.OnStateTransition(
+    #         target_lifecycle_node=delay_node, goal_state='active',
+    #         entities=[activate_pendulum_node]))
+
+    description = launch.LaunchDescription()
+    # description.add_action(on_inactive_delay_handler)
+    # description.add_action(on_inactive_pendulum_handler)
+    # description.add_action(on_active_delay_handler)
+    description.add_action(node)
+    description.add_action(configure_delay_node)
+
+    return description
