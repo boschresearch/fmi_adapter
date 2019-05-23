@@ -2,6 +2,10 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fixed link to FMU-SDK.
+
 0.1.3 (2019-02-01)
 ------------------
 
