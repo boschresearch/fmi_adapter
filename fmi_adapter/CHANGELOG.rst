@@ -2,6 +2,10 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Adapted to new Dashing features, including QoS, parameter declaration and node composition.
+
 0.1.4 (2019-05-23)
 ------------------
 * Fixed link to FMU-SDK.

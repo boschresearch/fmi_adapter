@@ -2,6 +2,10 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added example of launch file with new node composition feature.
+
 0.1.4 (2019-05-23)
 ------------------
 * Fixed link to FMU-SDK.
