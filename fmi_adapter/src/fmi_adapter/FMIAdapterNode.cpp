@@ -71,7 +71,7 @@ FMIAdapterNode::on_configure(const rclcpp_lifecycle::State &)
   for (const std::string & name : adapter_->getInputVariableNames()) {
     std::string rosifiedName = fmi_adapter::FMIAdapter::rosifyName(name);
     auto subscription =
-      create_subscription<std_msgs::msg::Float64>(rosifiedName,
+      create_subscription<std_msgs::msg::Float64>(rosifiedName, rclcpp::SystemDefaultsQoS(),
         [this, name](const std_msgs::msg::Float64::SharedPtr msg) {
           std::string myName = name;
           adapter_->setInputValue(myName, now(), msg->data);
@@ -81,7 +81,8 @@ FMIAdapterNode::on_configure(const rclcpp_lifecycle::State &)
 
   for (const std::string & name : adapter_->getOutputVariableNames()) {
     std::string rosifiedName = fmi_adapter::FMIAdapter::rosifyName(name);
-    publishers_[name] = create_publisher<std_msgs::msg::Float64>(rosifiedName);
+    publishers_[name] = create_publisher<std_msgs::msg::Float64>(rosifiedName,
+        rclcpp::SystemDefaultsQoS());
   }
 
   adapter_->exitInitializationMode(now());
