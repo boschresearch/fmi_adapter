@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.5 (2019-05-24)
+------------------
 * Adapted to new Dashing features, including QoS, parameter declaration and node composition.
 
 0.1.4 (2019-05-23)

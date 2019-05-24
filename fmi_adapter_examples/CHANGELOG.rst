@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.5 (2019-05-24)
+------------------
 * Added example of launch file with new node composition feature.
 
 0.1.4 (2019-05-23)
