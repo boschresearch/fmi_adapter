@@ -1,5 +1,5 @@
 # Copyright (c) 2019 - for information on the respective copyright owner
-# see the NOTICE file and/or the repository https://github.com/boschresearch/fmi_adapter.
+# see the NOTICE file and/or the repository https://github.com/boschresearch/fmi_adapter_ros2.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
