@@ -33,7 +33,7 @@ fmi_adapter provides a library with convenience functions based on common ROS ty
 
 ![fmi_adapter in application node](doc/high-level_architecture_with_application_node.png)
 
-For parsing the XML description of an FMU and for running the FMU's solver, fmi_adapter uses the C library [FMI Library](http://www.jmodelica.org/FMILibrary). This library is downloaded, compiled and linked in the CMakeLists.txt of this package using cmake's *externalproject\_add* command.
+For parsing the XML description of an FMU and for running the FMU's solver, fmi_adapter uses the C library [FMI Library](http://www.jmodelica.org/FMILibrary). For this purpose, fmi_adapter depends on the [fmilibrary\_vendor](https://github.com/boschresearch/fmilibrary_vendor) package, which downloads and builds the FMI Library using cmake's *externalproject\_add* command.
 
 
 ## Running an FMU inside a ROS node or library
