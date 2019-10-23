@@ -54,7 +54,6 @@ if(BUILD_TESTING)
   target_include_directories(${PROJECT_NAME}_test PRIVATE include)
   target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
   ament_target_dependencies(${PROJECT_NAME}_test
-    ${PROJECT_NAME}
     "rclcpp"
     "rclcpp_lifecycle"
     "rcutils"
