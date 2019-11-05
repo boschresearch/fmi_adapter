@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.6 (2019-11-05)
+------------------
 * Release for ROS 2 Eloquent.
 
 0.1.5 (2019-05-24)

@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.6 (2019-11-05)
+------------------
 * Release for ROS 2 Eloquent.
 * Changed build files for use of fmilibrary_vendor package.
 
