@@ -170,7 +170,7 @@ FMIAdapter::FMIAdapter(const std::string& fmuPath, ros::Duration stepSize, bool 
   }
 
   const fmi2_string_t instanceName = fmi2_import_get_model_name(fmu_);
-  const fmi2_string_t fmuLocation = "";
+  const fmi2_string_t fmuLocation = nullptr;  // Indicates that FMU should get path to the unzipped location.
   const fmi2_boolean_t visible = fmi2_false;
   const fmi2_real_t relativeTol = 1e-4;
   jmStatus = fmi2_import_instantiate(fmu_, instanceName, fmi2_cosimulation, fmuLocation, visible);
