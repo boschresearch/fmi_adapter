@@ -4,8 +4,8 @@ project(fmi_adapter)
 
 include(ExternalProject)
 externalproject_add(FMILibraryProject
-  URL https://jmodelica.org/fmil/FMILibrary-2.0.3-src.zip
-  URL_MD5 53d8edd7442c31bcd3fb56477e574845
+  GIT_REPOSITORY https://github.com/modelon-community/fmi-library.git
+  GIT_TAG 2.0.3
   TIMEOUT 60
 )
 externalproject_get_property(FMILibraryProject INSTALL_DIR)
