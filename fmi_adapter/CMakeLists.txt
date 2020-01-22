@@ -5,7 +5,7 @@ project(fmi_adapter)
 include(ExternalProject)
 externalproject_add(FMILibraryProject
   GIT_REPOSITORY https://github.com/modelon-community/fmi-library.git
-  GIT_TAG 2.0.3
+  GIT_TAG 2.1
   TIMEOUT 60
 )
 externalproject_get_property(FMILibraryProject INSTALL_DIR)
