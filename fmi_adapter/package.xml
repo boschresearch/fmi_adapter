@@ -13,6 +13,7 @@
   <url type="repository">https://github.com/boschresearch/fmi_adapter</url>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>git</build_depend>
   <depend>roscpp</depend>
   <depend>std_msgs</depend>
 
