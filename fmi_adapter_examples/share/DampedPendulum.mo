@@ -1,7 +1,7 @@
 model DampedPendulum
   inner Modelica.Mechanics.MultiBody.World world(label2 = "z", n = {0, 0, -1})  annotation(
     Placement(visible = true, transformation(origin = {-92, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Joints.Revolute revolute1(n = {0, 1, 0},phi(start = 1.5708), useAxisFlange = true) annotation(
+  Modelica.Mechanics.MultiBody.Joints.Revolute revolute1i(n = {0, 1, 0},phi(start = 1.5708), useAxisFlange = true) annotation(
     Placement(visible = true, transformation(origin = {-26, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Body body1(m = 1, r_CM = {0, 0, -1}) annotation(
     Placement(visible = true, transformation(origin = {24, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -12,15 +12,15 @@ model DampedPendulum
   Modelica.Blocks.Interfaces.RealOutput revolute1_angle annotation(
     Placement(visible = true, transformation(origin = {48, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {48, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(revolute1.support, damper1.flange_b) annotation(
+  connect(revolute1i.support, damper1.flange_b) annotation(
     Line(points = {{-32, 14}, {-32, 45}, {-44, 45}, {-44, 74}}));
-  connect(damper1.flange_a, revolute1.axis) annotation(
+  connect(damper1.flange_a, revolute1i.axis) annotation(
     Line(points = {{-16, 74}, {-16, 45}, {-26, 45}, {-26, 14}}));
-  connect(world.frame_b, revolute1.frame_a) annotation(
+  connect(world.frame_b, revolute1i.frame_a) annotation(
     Line(points = {{-82, 4}, {-36, 4}, {-36, 4}, {-36, 4}}, color = {95, 95, 95}));
-  connect(revolute1.frame_b, body1.frame_a) annotation(
+  connect(revolute1i.frame_b, body1.frame_a) annotation(
     Line(points = {{-16, 4}, {14, 4}}, color = {95, 95, 95}));
-  connect(revolute1.frame_b, absoluteAngles.frame_a) annotation(
+  connect(revolute1i.frame_b, absoluteAngles.frame_a) annotation(
     Line(points = {{-16, 4}, {0, 4}, {0, -44}}, color = {95, 95, 95}));
   connect(absoluteAngles.angles[2], revolute1_angle) annotation(
     Line(points = {{21, -44}, {48, -44}}, color = {0, 0, 127}));
