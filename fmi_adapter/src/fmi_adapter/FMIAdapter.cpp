@@ -380,7 +380,7 @@ ros::Time FMIAdapter::doStepsUntil(const ros::Time& simulationTime) {
   }
 
   fmi2_real_t targetFMUTime = (simulationTime - fmuTimeOffset_).toSec();
-  if (targetFMUTime < fmuTime_) {
+  if (targetFMUTime < fmuTime_ - stepSize_.toSec() / 2.0) {  // Subtract stepSize/2 for rounding.
     ROS_ERROR("Given time %f is before current simulation time %f!", targetFMUTime, fmuTime_);
     throw std::invalid_argument("Given time is before current simulation time!");
   }
