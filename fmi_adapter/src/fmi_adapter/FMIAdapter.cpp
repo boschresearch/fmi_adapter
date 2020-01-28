@@ -438,7 +438,7 @@ rclcpp::Time FMIAdapter::doStepsUntil(const rclcpp::Time & simulationTime)
   }
 
   fmi2_real_t targetFMUTime = (simulationTime - fmuTimeOffset_).seconds();
-  if (targetFMUTime < fmuTime_) {
+  if (targetFMUTime < fmuTime_ - stepSize_.seconds() / 2.0) {  // Subtract stepSize/2 for rounding.
     RCLCPP_ERROR(logger_, "Given time %f is before current simulation time %f!", targetFMUTime,
       fmuTime_);
     throw std::invalid_argument("Given time is before current simulation time!");
