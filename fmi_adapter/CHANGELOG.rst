@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.3 (2020-01-30)
+------------------
 * Fixed sporadic exception in case of small external steps.
 * Updated to FMILibrary version 2.1 and to new location of FMILibrary sources.
 * Fixed fmuLocation argument for fmi2_import_instantiate.
