@@ -2,6 +2,12 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fixed sporadic exception in case of small external steps.
+* Updated to FMILibrary version 2.1 and to new location of FMILibrary sources.
+* Fixed fmuLocation argument for fmi2_import_instantiate.
+
 1.0.2 (2018-10-12)
 ------------------
 * Added parameter to configure update period of fmi_adapter node.
