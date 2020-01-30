@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.7 (2020-01-30)
+------------------
 * Updated instructions for FMU export from OpenModelica.
 * Created explicit output revolute1_angle.
 
