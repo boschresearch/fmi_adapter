@@ -2,6 +2,11 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fixed sporadic exception in case of small external steps.
+* Fixed fmuLocation argument for fmi2_import_instantiate.
+
 0.1.6 (2019-11-05)
 ------------------
 * Release for ROS 2 Eloquent.
