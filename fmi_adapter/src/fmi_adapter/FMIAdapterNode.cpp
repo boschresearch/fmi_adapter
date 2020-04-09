@@ -35,12 +35,12 @@ namespace fmi_adapter
 FMIAdapterNode::FMIAdapterNode(const rclcpp::NodeOptions & options)
 : LifecycleNode("fmi_adapter_node", options)
 {
-  get_node_parameters_interface()->declare_parameter("fmu_path", rclcpp::ParameterValue(
-      ""), rcl_interfaces::msg::ParameterDescriptor());
-  get_node_parameters_interface()->declare_parameter("step_size", rclcpp::ParameterValue(
-      0.0), rcl_interfaces::msg::ParameterDescriptor());
-  get_node_parameters_interface()->declare_parameter("update_period", rclcpp::ParameterValue(
-      0.01), rcl_interfaces::msg::ParameterDescriptor());
+  get_node_parameters_interface()->declare_parameter(
+    "fmu_path", rclcpp::ParameterValue(""), rcl_interfaces::msg::ParameterDescriptor());
+  get_node_parameters_interface()->declare_parameter(
+    "step_size", rclcpp::ParameterValue(0.0), rcl_interfaces::msg::ParameterDescriptor());
+  get_node_parameters_interface()->declare_parameter(
+    "update_period", rclcpp::ParameterValue(0.01), rcl_interfaces::msg::ParameterDescriptor());
 }
 
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
@@ -71,18 +71,19 @@ FMIAdapterNode::on_configure(const rclcpp_lifecycle::State &)
   for (const std::string & name : adapter_->getInputVariableNames()) {
     std::string rosifiedName = fmi_adapter::FMIAdapter::rosifyName(name);
     auto subscription =
-      create_subscription<std_msgs::msg::Float64>(rosifiedName, rclcpp::SystemDefaultsQoS(),
-        [this, name](const std_msgs::msg::Float64::SharedPtr msg) {
-          std::string myName = name;
-          adapter_->setInputValue(myName, now(), msg->data);
-        });
+      create_subscription<std_msgs::msg::Float64>(
+      rosifiedName, rclcpp::SystemDefaultsQoS(),
+      [this, name](const std_msgs::msg::Float64::SharedPtr msg) {
+        std::string myName = name;
+        adapter_->setInputValue(myName, now(), msg->data);
+      });
     subscriptions_[name] = subscription;
   }
 
   for (const std::string & name : adapter_->getOutputVariableNames()) {
     std::string rosifiedName = fmi_adapter::FMIAdapter::rosifyName(name);
-    publishers_[name] = create_publisher<std_msgs::msg::Float64>(rosifiedName,
-        rclcpp::SystemDefaultsQoS());
+    publishers_[name] = create_publisher<std_msgs::msg::Float64>(
+      rosifiedName, rclcpp::SystemDefaultsQoS());
   }
 
   adapter_->exitInitializationMode(now());
@@ -93,23 +94,25 @@ FMIAdapterNode::on_configure(const rclcpp_lifecycle::State &)
       std::chrono::nanoseconds(static_cast<int64_t>(parameter.as_double() * 1000000000.0));
   }
 
-  timer_ = create_wall_timer(updatePeriod, [this]() {
-        rclcpp::Time currentTimepoint = now();
-        if (adapter_->getSimulationTime() < currentTimepoint) {
-          adapter_->doStepsUntil(currentTimepoint);
-        } else {
-          RCLCPP_INFO(get_logger(),
+  timer_ = create_wall_timer(
+    updatePeriod, [this]() {
+      rclcpp::Time currentTimepoint = now();
+      if (adapter_->getSimulationTime() < currentTimepoint) {
+        adapter_->doStepsUntil(currentTimepoint);
+      } else {
+        RCLCPP_INFO(
+          get_logger(),
           "Simulation time %f is greater than timer's time %f. Is your step size to large?",
           adapter_->getSimulationTime().seconds(), currentTimepoint.seconds());
+      }
+      for (const std::string & name : adapter_->getOutputVariableNames()) {
+        std_msgs::msg::Float64 msg;
+        msg.data = adapter_->getOutputValue(name);
+        if (publishers_[name]->is_activated()) {
+          publishers_[name]->publish(msg);
         }
-        for (const std::string & name : adapter_->getOutputVariableNames()) {
-          std_msgs::msg::Float64 msg;
-          msg.data = adapter_->getOutputValue(name);
-          if (publishers_[name]->is_activated()) {
-            publishers_[name]->publish(msg);
-          }
-        }
-      });
+      }
+    });
 
   return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
 }

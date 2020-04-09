@@ -212,8 +212,8 @@ private:
   /// Returns the current simulation time. The state w.r.t. initialization mode is not checked.
   rclcpp::Time getSimulationTimeInternal() const
   {
-    return rclcpp::Time(static_cast<uint64_t>(fmuTime_ * 1000000000.0),
-             RCL_ROS_TIME) + fmuTimeOffset_;
+    return rclcpp::Time(static_cast<uint64_t>(fmuTime_ * 1000000000.0), RCL_ROS_TIME) +
+           fmuTimeOffset_;
   }
 };
 
