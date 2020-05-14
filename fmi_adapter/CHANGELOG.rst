@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.8 (2020-05-14)
+------------------
 * Prepared for Foxy release.
 
 0.1.7 (2020-01-30)
