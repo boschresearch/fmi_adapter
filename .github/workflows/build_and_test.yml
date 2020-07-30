@@ -1,0 +1,27 @@
+name: build and test fmi_adapter
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    # Run once per day to detect broken dependencies
+    - cron: '33 6 * * *'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04 ]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ros-tooling/setup-ros@0.0.25
+      with:
+        required-ros-distributions: foxy
+    - uses : ros-tooling/action-ros-ci@0.0.17
+      with:
+        package-name: fmi_adapter
+        vcs-repo-file-url: dependencies.repos
+        source-ros-binary-installation: foxy
