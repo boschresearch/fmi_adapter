@@ -1,6 +1,11 @@
 # The fmi_adapter_ros2 repository
 
-[![Build Status](http://build.ros2.org/job/Ddev__fmi_adapter_ros2__ubuntu_bionic_amd64/badge/icon)](http://build.ros2.org/job/Ddev__fmi_adapter_ros2__ubuntu_bionic_amd64/)
+[![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/boschresearch/fmi_adapter_ros2/blob/master/LICENSE)
+[![Build status](http://build.ros2.org/job/Ddev__fmi_adapter_ros2__ubuntu_bionic_amd64/badge/icon?subject=Dashing%20build)](http://build.ros2.org/job/Ddev__fmi_adapter_ros2__ubuntu_bionic_amd64/)
+[![Build status](http://build.ros2.org/job/Edev__fmi_adapter_ros2__ubuntu_bionic_amd64/badge/icon?subject=Eloquent%20build)](http://build.ros2.org/job/Edev__fmi_adapter_ros2__ubuntu_bionic_amd64/)
+[![Build status](http://build.ros2.org/job/Fdev__fmi_adapter_ros2__ubuntu_focal_amd64/badge/icon?subject=Foxy%20build)](http://build.ros2.org/job/Fdev__fmi_adapter_ros2__ubuntu_focal_amd64/)
+[![Build status](http://build.ros2.org/job/Rdev__fmi_adapter_ros2__ubuntu_focal_amd64/badge/icon?subject=Rolling%20build)](http://build.ros2.org/job/Rdev__fmi_adapter_ros2__ubuntu_focal_amd64/)
+[![Code coverage](https://codecov.io/gh/boschresearch/fmi_adapter_ros2/branch/master/graph/badge.svg)](https://codecov.io/gh/boschresearch/fmi_adapter_ros2)
 
 This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS 2 nodes, i.e. for the version ROS 2. The original implementation for the first generation of ROS can be found at [github.com/boschresearch/fmi_adapter](https://github.com/boschresearch/fmi_adapter).
 
