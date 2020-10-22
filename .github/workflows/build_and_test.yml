@@ -13,15 +13,22 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
+        # os: [ ubuntu-20.04, windows-latest, macOS-latest ]
         os: [ ubuntu-20.04 ]
     steps:
     - uses: actions/checkout@v2
-    - uses: ros-tooling/setup-ros@0.0.25
+    - uses: ros-tooling/setup-ros@0.0.26
       with:
         required-ros-distributions: foxy
-    - uses : ros-tooling/action-ros-ci@0.0.17
+    - uses : ros-tooling/action-ros-ci@0.0.19
       with:
         package-name: fmi_adapter
         vcs-repo-file-url: dependencies.repos
-        source-ros-binary-installation: foxy
+        target-ros2-distro: foxy
+        colcon-mixin-name: coverage-gcc
+        colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
+    - uses: codecov/codecov-action@v1
+      with:
+        file: ros_ws/lcov/total_coverage.info
