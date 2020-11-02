@@ -1,4 +1,4 @@
-name: build and test fmi_adapter
+name: build and test
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    # Run once per day to detect broken dependencies
+    # Run once per day to detect broken dependencies.
     - cron: '33 6 * * *'
 
 jobs:
@@ -17,6 +17,7 @@ jobs:
       matrix:
         # os: [ ubuntu-20.04, windows-latest, macOS-latest ]
         os: [ ubuntu-20.04 ]
+        ros_distribution: [ foxy, rolling ]
     steps:
     - uses: actions/checkout@v2
     - uses: ros-tooling/setup-ros@0.0.26
@@ -26,7 +27,7 @@ jobs:
       with:
         package-name: fmi_adapter
         vcs-repo-file-url: dependencies.repos
-        target-ros2-distro: foxy
+        target-ros2-distro: ${{ matrix.ros_distribution }}
         colcon-mixin-name: coverage-gcc
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
     - uses: codecov/codecov-action@v1
