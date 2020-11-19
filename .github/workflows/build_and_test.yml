@@ -1,4 +1,4 @@
-name: build and test
+name: "Build action: Foxy + Rolling"
 
 on:
   push:
