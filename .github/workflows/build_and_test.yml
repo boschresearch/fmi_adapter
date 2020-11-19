@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ros-tooling/setup-ros@0.0.26
       with:
-        required-ros-distributions: foxy
+        required-ros-distributions: ${{ matrix.ros_distribution }}
     - uses : ros-tooling/action-ros-ci@0.1.0
       with:
         package-name: fmi_adapter
