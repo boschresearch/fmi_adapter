@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <chrono>
 #include <string>
 #include <thread>
 #include <vector>
@@ -30,6 +31,8 @@ namespace
 {
 
 const double EPSILON = 0.01;
+
+using namespace std::chrono_literals;
 
 
 class FMIAdapterTest : public ::testing::Test, public rclcpp::Node
@@ -67,21 +70,21 @@ public:
 
 TEST_F(FMIAdapterTest, ctorWithImplicitDefaultExperimentStepSize) {
   fmi_adapter::FMIAdapter wrapper(get_logger(), test_FMUs_path_ + "TransportDelay.fmu");
-  EXPECT_EQ(wrapper.getStepSize(), rclcpp::Duration(0, 1000000));
+  EXPECT_EQ(wrapper.getStepSize(), rclcpp::Duration(1ms));
 }
 
 
 TEST_F(FMIAdapterTest, ctorWithExplicitDefaultExperimentStepSize) {
   fmi_adapter::FMIAdapter wrapper(
-    get_logger(), test_FMUs_path_ + "TransportDelay.fmu", rclcpp::Duration(0));
-  EXPECT_EQ(wrapper.getStepSize(), rclcpp::Duration(0, 1000000));
+    get_logger(), test_FMUs_path_ + "TransportDelay.fmu", rclcpp::Duration(0ms));
+  EXPECT_EQ(wrapper.getStepSize(), rclcpp::Duration(1ms));
 }
 
 
 TEST_F(FMIAdapterTest, ctorWithExplicitStepSize) {
   fmi_adapter::FMIAdapter wrapper(
-    get_logger(), test_FMUs_path_ + "TransportDelay.fmu", rclcpp::Duration(0, 4000000));
-  EXPECT_EQ(wrapper.getStepSize(), rclcpp::Duration(0, 4000000));
+    get_logger(), test_FMUs_path_ + "TransportDelay.fmu", rclcpp::Duration(4ms));
+  EXPECT_EQ(wrapper.getStepSize(), rclcpp::Duration(4ms));
 }
 
 
@@ -93,7 +96,7 @@ TEST_F(FMIAdapterTest, canHandleVariableCommunicationStepSize) {
 
 TEST_F(FMIAdapterTest, getDefaultExperimentStep) {
   fmi_adapter::FMIAdapter wrapper(get_logger(), test_FMUs_path_ + "TransportDelay.fmu");
-  EXPECT_EQ(wrapper.getDefaultExperimentStep(), rclcpp::Duration(0, 1000000));
+  EXPECT_EQ(wrapper.getDefaultExperimentStep(), rclcpp::Duration(1ms));
 }
 
 
@@ -114,45 +117,45 @@ TEST_F(FMIAdapterTest, doStepsUntil_withInterpolation) {
   const rclcpp::Time startTime = rclcpp::Time(17, 0, RCL_ROS_TIME);
   wrapper.exitInitializationMode(startTime);
 
-  wrapper.setInputValue("x", startTime + rclcpp::Duration(4, 0), 2.0);
-  wrapper.setInputValue("x", startTime + rclcpp::Duration(7, 0), 3.0);
-  wrapper.setInputValue("x", startTime + rclcpp::Duration(9, 0), -1.0);
+  wrapper.setInputValue("x", startTime + rclcpp::Duration(4000ms), 2.0);
+  wrapper.setInputValue("x", startTime + rclcpp::Duration(7000ms), 3.0);
+  wrapper.setInputValue("x", startTime + rclcpp::Duration(9000ms), -1.0);
 
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(0, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(500ms));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(4, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(4500ms));
   EXPECT_NEAR(2.167, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(7, 000000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(7000ms));
   EXPECT_NEAR(3.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(8, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(8500ms));
   EXPECT_NEAR(0.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(9, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(9500ms));
   EXPECT_NEAR(-1.0, wrapper.getOutputValue("y"), EPSILON);
 }
 
 
 TEST_F(FMIAdapterTest, doStepsUntil_withoutInterpolation) {
   fmi_adapter::FMIAdapter wrapper(
-    get_logger(), test_FMUs_path_ + "TransportDelay.fmu", rclcpp::Duration(0, 1000000), false);
-  const rclcpp::Duration DELAY(2, 0);
+    get_logger(), test_FMUs_path_ + "TransportDelay.fmu", rclcpp::Duration(1ms), false);
+  const rclcpp::Duration DELAY(2000ms);
 
   wrapper.setInitialValue("x", 2.0);
   const rclcpp::Time startTime = rclcpp::Time(17, 0, RCL_ROS_TIME);
   wrapper.exitInitializationMode(startTime);
 
-  wrapper.setInputValue("x", startTime + rclcpp::Duration(4, 0), 2.0);
-  wrapper.setInputValue("x", startTime + rclcpp::Duration(7, 0), 3.0);
-  wrapper.setInputValue("x", startTime + rclcpp::Duration(9, 0), -1.0);
+  wrapper.setInputValue("x", startTime + rclcpp::Duration(4000ms), 2.0);
+  wrapper.setInputValue("x", startTime + rclcpp::Duration(7000ms), 3.0);
+  wrapper.setInputValue("x", startTime + rclcpp::Duration(9000ms), -1.0);
 
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(0, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(500ms));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(4, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(4500ms));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(7, 100000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(7100ms));
   EXPECT_NEAR(3.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(8, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(8500ms));
   EXPECT_NEAR(3.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(9, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(9500ms));
   EXPECT_NEAR(-1.0, wrapper.getOutputValue("y"), EPSILON);
 }
 
@@ -165,12 +168,12 @@ TEST_F(FMIAdapterTest, doStepsUntil_interpolationAfterExtrapolation) {
   const rclcpp::Time startTime = rclcpp::Time(17, 0, RCL_ROS_TIME);
   wrapper.exitInitializationMode(startTime);
 
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(1, 0));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(1000ms));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.setInputValue("x", startTime + rclcpp::Duration(4, 0), 1.0);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(2, 900000000));
+  wrapper.setInputValue("x", startTime + rclcpp::Duration(4000ms), 1.0);
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(2900ms));
   EXPECT_NEAR(2.0, wrapper.getOutputValue("y"), EPSILON);
-  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(3, 500000000));
+  wrapper.doStepsUntil(startTime + DELAY + rclcpp::Duration(3500ms));
   EXPECT_NEAR(1.125, wrapper.getOutputValue("y"), EPSILON);
 }
 
