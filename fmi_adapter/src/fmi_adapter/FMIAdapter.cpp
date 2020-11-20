@@ -132,9 +132,9 @@ FMIAdapter::FMIAdapter(
 : logger_(logger), fmuPath_(fmuPath), stepSize_(stepSize), interpolateInput_(interpolateInput),
   tmpPath_(tmpPath)
 {
-  if (stepSize == rclcpp::Duration(0)) {
+  if (stepSize == internal::ZERO_DURATION) {
     // Use step-size from FMU. See end of ctor.
-  } else if (stepSize < rclcpp::Duration(0)) {
+  } else if (stepSize < internal::ZERO_DURATION) {
     throw std::invalid_argument("Step size must be positive!");
   }
   if (!helpers::canReadFromFile(fmuPath)) {
@@ -211,9 +211,9 @@ FMIAdapter::FMIAdapter(
     throw std::runtime_error("fmi2_import_enter_initialization_mode failed!");
   }
 
-  if (stepSize == rclcpp::Duration(0)) {
+  if (stepSize == internal::ZERO_DURATION) {
     stepSize_ = rclcpp::Duration(1, 0) * fmi2_import_get_default_experiment_step(fmu_);
-    if (stepSize_ <= rclcpp::Duration(0)) {
+    if (stepSize_ <= internal::ZERO_DURATION) {
       throw std::invalid_argument("Default experiment step size from FMU is not positive!");
     }
     RCLCPP_INFO(
@@ -386,7 +386,7 @@ rclcpp::Time FMIAdapter::doStep()
 
 rclcpp::Time FMIAdapter::doStep(const rclcpp::Duration & stepSize)
 {
-  if (stepSize <= rclcpp::Duration(0)) {
+  if (stepSize <= internal::ZERO_DURATION) {
     throw std::invalid_argument("Step size must be positive!");
   }
   if (inInitializationMode_) {
