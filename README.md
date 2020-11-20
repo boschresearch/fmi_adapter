@@ -1,6 +1,6 @@
 # The fmi_adapter_ros2 repository
 
-[![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://github.com/boschresearch/fmi_adapter_ros2/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://github.com/boschresearch/fmi_adapter_ros2/blob/master/LICENSE)
 [![Build status](http://build.ros2.org/job/Ddev__fmi_adapter_ros2__ubuntu_bionic_amd64/badge/icon?subject=Build%20farm%3A%20Dashing)](http://build.ros2.org/job/Ddev__fmi_adapter_ros2__ubuntu_bionic_amd64/)
 [![Build status](http://build.ros2.org/job/Edev__fmi_adapter_ros2__ubuntu_bionic_amd64/badge/icon?subject=Build%20farm%3A%20Eloquent)](http://build.ros2.org/job/Edev__fmi_adapter_ros2__ubuntu_bionic_amd64/)
 [![Build status](http://build.ros2.org/job/Fdev__fmi_adapter_ros2__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Foxy)](http://build.ros2.org/job/Fdev__fmi_adapter_ros2__ubuntu_focal_amd64/)
