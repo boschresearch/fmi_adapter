@@ -1,0 +1,28 @@
+name: "Build action: Noetic"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    # Run once per day to detect broken dependencies.
+    - cron: '33 6 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        ros_distribution: [ noetic ]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ros-tooling/setup-ros@0.0.26
+      with:
+        required-ros-distributions: ${{ matrix.ros_distribution }}
+    - uses : ros-tooling/action-ros-ci@0.1.0
+      with:
+        package-name: fmi_adapter
+        vcs-repo-file-url: ""
+        target-ros1-distro: ${{ matrix.ros_distribution }}
