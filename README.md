@@ -1,5 +1,6 @@
 # The fmi_adapter repository
 
+[![License](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://github.com/boschresearch/fmi_adapter/blob/master/LICENSE)
 [![Build status](http://build.ros.org/job/Mdev__fmi_adapter__ubuntu_bionic_amd64/badge/icon?subject=Build%20farm%3A%20Melodic)](http://build.ros.org/job/Mdev__fmi_adapter__ubuntu_bionic_amd64/)
 [![Build status](http://build.ros.org/job/Ndev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Noetic)](http://build.ros.org/job/Ndev__fmi_adapter__ubuntu_focal_amd64/)
 [![Build status](https://github.com/boschresearch/fmi_adapter/workflows/Build%20action%3A%20Noetic/badge.svg)](https://github.com/boschresearch/fmi_adapter/actions)
