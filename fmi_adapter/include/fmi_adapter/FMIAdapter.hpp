@@ -38,7 +38,7 @@ namespace fmi_adapter
 namespace internal
 {
 const rclcpp::Duration ZERO_DURATION{std::chrono::nanoseconds(0)};
-}   // namespace internal
+}  // namespace internal
 
 /// An instance of this class wraps a FMU and allows to simulate it using the ROS time notion and
 /// standard C++ types. In the background, the FMI Library (a BSD-licensed C library) is used for
@@ -181,7 +181,7 @@ private:
   /// signal (true) or as non-continuous, piecewise constant signal (false).
   bool interpolateInput_;
 
-  /// Path to folder for extracting the FMU file temporarilly.
+  /// Path to folder for extracting the FMU file temporarily.
   std::string tmpPath_;
 
   /// In case that a random folder /tmp is being used (i.e. if given tmp path is ""), clean up
