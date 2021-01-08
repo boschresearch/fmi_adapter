@@ -38,7 +38,7 @@ namespace fmi_adapter
 namespace internal
 {
 const rclcpp::Duration ZERO_DURATION{std::chrono::nanoseconds(0)};
-}  // namespace internal
+}   // namespace internal
 
 /// An instance of this class wraps a FMU and allows to simulate it using the ROS time notion and
 /// standard C++ types. In the background, the FMI Library (a BSD-licensed C library) is used for
@@ -139,6 +139,12 @@ public:
 
   /// Returns the current value of the output variable with the given name.
   double getOutputValue(const std::string & variableName) const;
+
+  /// Returns the current value of the given variable
+  double getValue(fmi2_import_variable_t * variable) const;
+
+  /// Returns the current value of the variable with the given name
+  double getValue(const std::string & variableName) const;
 
   /// Sets the given value of the given variable (or parameter or alias) as initial values. This
   /// function may be called only while isInInitializationMode() = true.

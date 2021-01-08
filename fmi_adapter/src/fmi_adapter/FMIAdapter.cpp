@@ -54,7 +54,6 @@ bool canWriteToFolder(const std::string & path)
   return access(path.c_str(), W_OK) == 0;
 }
 
-
 bool canReadFromFile(const std::string & path)
 {
   std::ifstream stream(path.c_str());
@@ -66,15 +65,12 @@ bool canReadFromFile(const std::string & path)
   }
 }
 
-
 bool variableFilterAll(__attribute__((unused)) fmi2_import_variable_t * variable) {return true;}
-
 
 bool variableFilterByCausality(fmi2_import_variable_t * variable, fmi2_causality_enu_t causality)
 {
   return fmi2_import_get_causality(variable) == causality;
 }
-
 
 /// This helper functions returns all variables with a certain property defined by a filter.
 std::vector<fmi2_import_variable_t *> getVariablesFromFMU(
@@ -97,7 +93,6 @@ std::vector<fmi2_import_variable_t *> getVariablesFromFMU(
 
   return result;
 }
-
 
 /// This helper functions returns all variable names with a certain property defined by a filter.
 std::vector<std::string> getVariableNamesFromFMU(
@@ -122,8 +117,7 @@ std::vector<std::string> getVariableNamesFromFMU(
   return result;
 }
 
-}  // namespace helpers
-
+}   // namespace helpers
 
 FMIAdapter::FMIAdapter(
   rclcpp::Logger logger, const std::string & fmuPath, rclcpp::Duration stepSize,
@@ -192,7 +186,7 @@ FMIAdapter::FMIAdapter(
   }
 
   const fmi2_string_t instanceName = fmi2_import_get_model_name(fmu_);
-  const fmi2_string_t fmuLocation = nullptr;  // Indicates that FMU gets path to unzipped location.
+  const fmi2_string_t fmuLocation = nullptr;   // Indicates that FMU gets path to unzipped location.
   const fmi2_boolean_t visible = fmi2_false;
   const fmi2_real_t relativeTol = 1e-4;
   jmStatus = fmi2_import_instantiate(fmu_, instanceName, fmi2_cosimulation, fmuLocation, visible);
@@ -222,7 +216,6 @@ FMIAdapter::FMIAdapter(
   }
 }
 
-
 FMIAdapter::~FMIAdapter()
 {
   if (!inInitializationMode_) {
@@ -244,7 +237,6 @@ FMIAdapter::~FMIAdapter()
   }
 }
 
-
 std::string FMIAdapter::rosifyName(const std::string & name)
 {
   std::string result = name;
@@ -264,25 +256,21 @@ std::string FMIAdapter::rosifyName(const std::string & name)
   return result;
 }
 
-
 bool FMIAdapter::canHandleVariableCommunicationStepSize() const
 {
   return static_cast<bool>(fmi2_import_get_capability(
            fmu_, fmi2_cs_canHandleVariableCommunicationStepSize));
 }
 
-
 rclcpp::Duration FMIAdapter::getDefaultExperimentStep() const
 {
   return rclcpp::Duration(1, 0) * fmi2_import_get_default_experiment_step(fmu_);
 }
 
-
 std::vector<fmi2_import_variable_t *> FMIAdapter::getAllVariables() const
 {
   return helpers::getVariablesFromFMU(fmu_, helpers::variableFilterAll);
 }
-
 
 std::vector<fmi2_import_variable_t *> FMIAdapter::getInputVariables() const
 {
@@ -292,7 +280,6 @@ std::vector<fmi2_import_variable_t *> FMIAdapter::getInputVariables() const
   return helpers::getVariablesFromFMU(fmu_, filter);
 }
 
-
 std::vector<fmi2_import_variable_t *> FMIAdapter::getOutputVariables() const
 {
   auto filter = std::bind(
@@ -300,7 +287,6 @@ std::vector<fmi2_import_variable_t *> FMIAdapter::getOutputVariables() const
     fmi2_causality_enu_output);
   return helpers::getVariablesFromFMU(fmu_, filter);
 }
-
 
 std::vector<fmi2_import_variable_t *> FMIAdapter::getParameters() const
 {
@@ -310,12 +296,10 @@ std::vector<fmi2_import_variable_t *> FMIAdapter::getParameters() const
   return helpers::getVariablesFromFMU(fmu_, filter);
 }
 
-
 std::vector<std::string> FMIAdapter::getAllVariableNames() const
 {
   return helpers::getVariableNamesFromFMU(fmu_, helpers::variableFilterAll);
 }
-
 
 std::vector<std::string> FMIAdapter::getInputVariableNames() const
 {
@@ -325,7 +309,6 @@ std::vector<std::string> FMIAdapter::getInputVariableNames() const
   return helpers::getVariableNamesFromFMU(fmu_, filter);
 }
 
-
 std::vector<std::string> FMIAdapter::getOutputVariableNames() const
 {
   auto filter = std::bind(
@@ -334,7 +317,6 @@ std::vector<std::string> FMIAdapter::getOutputVariableNames() const
   return helpers::getVariableNamesFromFMU(fmu_, filter);
 }
 
-
 std::vector<std::string> FMIAdapter::getParameterNames() const
 {
   auto filter = std::bind(
@@ -342,7 +324,6 @@ std::vector<std::string> FMIAdapter::getParameterNames() const
     fmi2_causality_enu_parameter);
   return helpers::getVariableNamesFromFMU(fmu_, filter);
 }
-
 
 void FMIAdapter::exitInitializationMode(const rclcpp::Time & simulationTime)
 {
@@ -371,7 +352,6 @@ void FMIAdapter::exitInitializationMode(const rclcpp::Time & simulationTime)
   }
 }
 
-
 rclcpp::Time FMIAdapter::doStep()
 {
   if (inInitializationMode_) {
@@ -382,7 +362,6 @@ rclcpp::Time FMIAdapter::doStep()
 
   return getSimulationTimeInternal();
 }
-
 
 rclcpp::Time FMIAdapter::doStep(const rclcpp::Duration & stepSize)
 {
@@ -397,7 +376,6 @@ rclcpp::Time FMIAdapter::doStep(const rclcpp::Duration & stepSize)
 
   return getSimulationTimeInternal();
 }
-
 
 void FMIAdapter::doStepInternal(const rclcpp::Duration & stepSize)
 {
@@ -437,7 +415,6 @@ void FMIAdapter::doStepInternal(const rclcpp::Duration & stepSize)
   fmuTime_ += stepSize.seconds();
 }
 
-
 rclcpp::Time FMIAdapter::doStepsUntil(const rclcpp::Time & simulationTime)
 {
   if (inInitializationMode_) {
@@ -458,7 +435,6 @@ rclcpp::Time FMIAdapter::doStepsUntil(const rclcpp::Time & simulationTime)
   return getSimulationTimeInternal();
 }
 
-
 rclcpp::Time FMIAdapter::getSimulationTime() const
 {
   if (inInitializationMode_) {
@@ -467,7 +443,6 @@ rclcpp::Time FMIAdapter::getSimulationTime() const
 
   return getSimulationTimeInternal();
 }
-
 
 void FMIAdapter::setInputValue(
   fmi2_import_variable_t * variable, const rclcpp::Time & time,
@@ -480,7 +455,6 @@ void FMIAdapter::setInputValue(
   inputValuesByVariable_[variable].insert(std::make_pair(time, value));
 }
 
-
 void FMIAdapter::setInputValue(
   const std::string & variableName, const rclcpp::Time & time,
   double value)
@@ -492,7 +466,6 @@ void FMIAdapter::setInputValue(
 
   setInputValue(variable, time, value);
 }
-
 
 double FMIAdapter::getOutputValue(fmi2_import_variable_t * variable) const
 {
@@ -507,7 +480,6 @@ double FMIAdapter::getOutputValue(fmi2_import_variable_t * variable) const
   return value;
 }
 
-
 double FMIAdapter::getOutputValue(const std::string & variableName) const
 {
   fmi2_import_variable_t * variable = fmi2_import_get_variable_by_name(fmu_, variableName.c_str());
@@ -518,6 +490,23 @@ double FMIAdapter::getOutputValue(const std::string & variableName) const
   return getOutputValue(variable);
 }
 
+double FMIAdapter::getValue(fmi2_import_variable_t * variable) const
+{
+  fmi2_value_reference_t valueReference = fmi2_import_get_variable_vr(variable);
+  fmi2_real_t value;
+  fmi2_import_get_real(fmu_, &valueReference, 1, &value);
+  return value;
+}
+
+double FMIAdapter::getValue(const std::string & variableName) const
+{
+  fmi2_import_variable_t * variable = fmi2_import_get_variable_by_name(fmu_, variableName.c_str());
+  if (variable == nullptr) {
+    throw std::invalid_argument("Unknown variable name!");
+  }
+
+  return getValue(variable);
+}
 
 void FMIAdapter::setInitialValue(fmi2_import_variable_t * variable, double value)
 {
@@ -532,7 +521,6 @@ void FMIAdapter::setInitialValue(fmi2_import_variable_t * variable, double value
   RCLCPP_INFO(logger_, "Set initial value of variable '%s' to %f", name.c_str(), value);
 }
 
-
 void FMIAdapter::setInitialValue(const std::string & variableName, double value)
 {
   fmi2_import_variable_t * variable = fmi2_import_get_variable_by_name(fmu_, variableName.c_str());
@@ -542,7 +530,6 @@ void FMIAdapter::setInitialValue(const std::string & variableName, double value)
 
   setInitialValue(variable, value);
 }
-
 
 void FMIAdapter::declareROSParameters(
   rclcpp::node_interfaces::NodeParametersInterface::SharedPtr nodeInterface)
