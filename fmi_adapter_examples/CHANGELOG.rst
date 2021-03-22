@@ -2,6 +2,10 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Ensured same relative location for sample FMUs in devel and install layout.
+
 1.0.3 (2020-01-30)
 ------------------
 * Updated instructions for FMU export from OpenModelica.
