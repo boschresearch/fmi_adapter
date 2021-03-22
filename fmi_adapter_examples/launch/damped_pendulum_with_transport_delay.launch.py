@@ -33,9 +33,9 @@ def generate_launch_description():
 
     delay_node = launch_ros.actions.LifecycleNode(
         package='fmi_adapter',
-        node_executable='fmi_adapter_node',
-        node_name='transport_delay',
-        node_namespace='example',
+        executable='fmi_adapter_node',
+        name='transport_delay',
+        namespace='example',
         parameters=[{
             'fmu_path': delay_fmu_path,
             'd': 2.33}  # Set transport delay to 2.33s.
@@ -60,9 +60,9 @@ def generate_launch_description():
 
     pendulum_node = launch_ros.actions.LifecycleNode(
         package='fmi_adapter',
-        node_executable='fmi_adapter_node',
-        node_name='damped_pendulum',
-        node_namespace='example',
+        executable='fmi_adapter_node',
+        name='damped_pendulum',
+        namespace='example',
         parameters=[{
             'fmu_path': pendulum_fmu_path,
             'l': 25.0,  # Set pendulum length to 25m.

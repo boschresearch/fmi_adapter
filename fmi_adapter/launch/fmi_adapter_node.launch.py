@@ -29,8 +29,8 @@ def generate_launch_description():
 
     node = launch_ros.actions.LifecycleNode(
         package='fmi_adapter',
-        node_executable='fmi_adapter_node',
-        node_name='fmi_adapter_node',
+        executable='fmi_adapter_node',
+        name='fmi_adapter_node',
         parameters=[{'fmu_path': launch.substitutions.LaunchConfiguration('fmu_path')}],
         output='screen')
 

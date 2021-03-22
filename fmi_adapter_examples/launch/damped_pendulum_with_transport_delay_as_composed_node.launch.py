@@ -33,9 +33,9 @@ def generate_launch_description():
 
     pendulum_node= launch_ros.descriptions.ComposableNode(
         package='fmi_adapter',
-        node_plugin='fmi_adapter::FMIAdapterNode',
-        node_namespace='/example',
-        node_name='damped_pendulum',
+        plugin='fmi_adapter::FMIAdapterNode',
+        namespace='/example',
+        name='damped_pendulum',
         parameters=[{
             'fmu_path': pendulum_fmu_path,
             'l': 25.0,  # Set pendulum length to 25m.
@@ -48,19 +48,19 @@ def generate_launch_description():
 
     delay_node = launch_ros.descriptions.ComposableNode(
         package='fmi_adapter',
-        node_plugin='fmi_adapter::FMIAdapterNode',
-        node_namespace='/example',
-        node_name='transport_delay',
+        plugin='fmi_adapter::FMIAdapterNode',
+        namespace='/example',
+        name='transport_delay',
         parameters=[{
             'fmu_path': delay_fmu_path,
             'd': 2.33  # Set transport delay to 2.33s.
         }])
 
     node = launch_ros.actions.ComposableNodeContainer(
-        node_name='fmi_adapter_nodes',
-        node_namespace='',
+        name='fmi_adapter_nodes',
+        namespace='',
         package='rclcpp_components',
-        node_executable='component_container',
+        executable='component_container',
         composable_node_descriptions=[pendulum_node, delay_node],
         remappings=[('/example/x', '/example/a')],
         output='screen'
