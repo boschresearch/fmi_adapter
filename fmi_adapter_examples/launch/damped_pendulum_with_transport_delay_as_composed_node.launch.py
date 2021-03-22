@@ -54,7 +54,8 @@ def generate_launch_description():
         parameters=[{
             'fmu_path': delay_fmu_path,
             'd': 2.33  # Set transport delay to 2.33s.
-        }])
+        }],
+        remappings=[('x', 'a')])
 
     node = launch_ros.actions.ComposableNodeContainer(
         name='fmi_adapter_nodes',
@@ -62,7 +63,6 @@ def generate_launch_description():
         package='rclcpp_components',
         executable='component_container',
         composable_node_descriptions=[pendulum_node, delay_node],
-        remappings=[('/example/x', '/example/a')],
         output='screen'
     )
 
