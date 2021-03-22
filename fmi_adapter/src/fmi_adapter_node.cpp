@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
   ros::Duration stepSize(stepSizeAsDouble);
 
   fmi_adapter::FMIAdapter adapter(fmuPath, stepSize);
-  for (const std::string name : adapter.getParameterNames()) {
+  for (const std::string & name : adapter.getParameterNames()) {
     ROS_DEBUG("FMU has parameter '%s'", name.c_str());
   }
   adapter.initializeFromROSParameters(n);
