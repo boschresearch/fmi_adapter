@@ -2,12 +2,9 @@ name: "Build action: Noetic"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ noetic ]
   pull_request:
-    branches: [ master ]
-  schedule:
-    # Run once per day to detect broken dependencies.
-    - cron: '33 6 * * *'
+    branches: [ noetic ]
 
 jobs:
   build:
