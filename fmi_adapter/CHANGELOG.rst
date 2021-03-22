@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.4 (2021-03-22)
+------------------
 * Updated to version 2.2.3 of FMILibrary.
 
 1.0.3 (2020-01-30)

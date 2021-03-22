@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter_examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.4 (2021-03-22)
+------------------
 * Ensured same relative location for sample FMUs in devel and install layout.
 
 1.0.3 (2020-01-30)
