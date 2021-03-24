@@ -31,6 +31,7 @@ def generate_launch_description():
         package='fmi_adapter',
         executable='fmi_adapter_node',
         name='fmi_adapter_node',
+        namespace='',
         parameters=[{'fmu_path': launch.substitutions.LaunchConfiguration('fmu_path')}],
         output='screen')
 
