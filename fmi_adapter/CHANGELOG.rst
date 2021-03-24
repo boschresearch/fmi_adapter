@@ -2,6 +2,10 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Adapted launch files to API changes.
+
 2.0.0 (2021-03-24)
 ------------------
 * Added function 'getValue' to return value of any given variable name
