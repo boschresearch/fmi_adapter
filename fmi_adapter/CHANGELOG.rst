@@ -2,8 +2,8 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.0.0 (2021-03-24)
+------------------
 * Added function 'getValue' to return value of any given variable name
   Co-authored-by: Sebastian Zarnack <sebastian.zarnack@eas.iis.fraunhofer.de>
 * Improved readability of unit tests by chrono literals.
