@@ -7,7 +7,7 @@
 [![Build status](https://github.com/boschresearch/fmi_adapter/workflows/Build%20action%3A%20Foxy%20%2B%20Rolling/badge.svg)](https://github.com/boschresearch/fmi_adapter/actions)
 [![Code coverage](https://codecov.io/gh/boschresearch/fmi_adapter/branch/master/graph/badge.svg)](https://codecov.io/gh/boschresearch/fmi_adapter)
 
-This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS 2 nodes, i.e. for the version ROS 2. The original implementation for the first generation of ROS can be found at [github.com/boschresearch/fmi_adapter](https://github.com/boschresearch/fmi_adapter).
+This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS 2 nodes, i.e. for the version ROS 2. The implementation for the first generation of ROS can be found in the [melodic_and_noetic branch](https://github.com/boschresearch/fmi_adapter/tree/melodic_and_noetic).
 
 
 FMUs are defined in the [FMI standard](http://fmi-standard.org/) and can be created with a variety of modeling and simulation tools, including [Dymola](http://www.3ds.com/products-services/catia/products/dymola), [MATLAB/Simulink](https://www.mathworks.com/products/simulink.html), [OpenModelica](https://www.openmodelica.org/), [SimulationX](https://www.simulationx.de/), and [Wolfram System Modeler](http://www.wolfram.com/system-modeler/).
