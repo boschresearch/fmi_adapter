@@ -65,7 +65,6 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   set(ament_cmake_copyright_FOUND TRUE)  # No copyright header check since link to NOTICE file is not recognized properly.
   set(ament_cmake_cppcheck_FOUND TRUE)  # Cpplint fails at TEST macro of Googletest.
-  set(ament_cmake_flake8_FOUND TRUE)  # Current dependency problem in flake8 with ROS Dashing.
   ament_lint_auto_find_test_dependencies()
 endif()
 
