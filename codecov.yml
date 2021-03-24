@@ -1,5 +1,5 @@
 fixes:
-    - "/home/runner/work/fmi_adapter_ros2/fmi_adapter_ros2/ros_ws/src/fmi_adapter_ros2/::"
+    - "/home/runner/work/fmi_adapter/fmi_adapter/ros_ws/src/fmi_adapter/::"
 ignore:
     - "fmi_adapter/src/fmi_adapter_node.cpp"
     - "fmi_adapter/test"

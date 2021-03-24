@@ -10,7 +10,7 @@
   <license>Apache License 2.0</license>
 
   <url type="website">http://wiki.ros.org/fmi_adapter</url>
-  <url type="repository">https://github.com/boschresearch/fmi_adapter_ros2</url>
+  <url type="repository">https://github.com/boschresearch/fmi_adapter</url>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
