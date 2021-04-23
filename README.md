@@ -57,3 +57,23 @@ Please notice the following issues/limitations:
 
 *   fmi_adapter only supports FMUs according to the FMI 2.0 standard.
 *   fmi_adapter treats all inputs, outputs and parameters of a given FMU as floating-point values (ROS message std_msgs/Float64, C++ type double, FMI type fmi2fmi2_real_t).
+
+
+## Papers
+
+If you want to cite this repository/package, please cite the following book chapter ([PDF available at Springer Link](https://doi.org/10.1007/978-3-030-45956-7_7)) instead:
+
+Ralph Lange, Silvio Traversaro, Oliver Lenord, and Christian Bertsch: Integrating the Functional Mock-Up Interface with ROS and Gazebo. In: _Anis Koubaa (ed.) Robot Operating System (ROS): The Complete Reference (Volume 5)_, Springer, pp. 187–231, 2021.
+
+```bibtex
+@INBOOK{Lange_et_al_2021_Integrating_the_FMI_with_ROS_and_Gazebo,
+  author = {Ralph Lange and Silvio Traversaro and Oliver Lenord and Christian Bertsch},
+  title = {Integrating the Functional Mock-Up Interface with ROS and Gazebo},
+  editor = {Anis Koubaa},
+  booktitle = {Robot Operating System (ROS): The Complete Reference (Volume 5)},
+  year = {2021},
+  publisher = {Springer},
+  pages = {187--231},
+  doi = {10.1007/978-3-030-45956-7_7}
+}
+```
