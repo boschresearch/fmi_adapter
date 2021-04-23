@@ -1,11 +1,6 @@
-# The fmi_adapter repository
+**!!! This branch is no longer maintained as the ROS 2 Dashing distribution is EOL since May 2021 !!!**
 
-[![License](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://github.com/boschresearch/fmi_adapter/blob/master/LICENSE)
-[![Build status](http://build.ros2.org/job/Ddev__fmi_adapter__ubuntu_bionic_amd64/badge/icon?subject=Build%20farm%3A%20Dashing)](http://build.ros2.org/job/Ddev__fmi_adapter__ubuntu_bionic_amd64/)
-[![Build status](http://build.ros2.org/job/Fdev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Foxy)](http://build.ros2.org/job/Fdev__fmi_adapter__ubuntu_focal_amd64/)
-[![Build status](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Rolling)](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_focal_amd64/)
-[![Build status](https://github.com/boschresearch/fmi_adapter/workflows/Build%20action%3A%20Foxy%20%2B%20Rolling/badge.svg)](https://github.com/boschresearch/fmi_adapter/actions)
-[![Code coverage](https://codecov.io/gh/boschresearch/fmi_adapter/branch/master/graph/badge.svg)](https://codecov.io/gh/boschresearch/fmi_adapter)
+# The fmi_adapter repository
 
 This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS 2 nodes, i.e. for the version ROS 2. The implementation for the first generation of ROS can be found in the [melodic_and_noetic branch](https://github.com/boschresearch/fmi_adapter/tree/melodic_and_noetic).
 
