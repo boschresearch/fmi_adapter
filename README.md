@@ -5,7 +5,9 @@
 [![Build status](http://build.ros.org/job/Ndev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Noetic)](http://build.ros.org/job/Ndev__fmi_adapter__ubuntu_focal_amd64/)
 [![Build status](https://github.com/boschresearch/fmi_adapter/workflows/Build%20action%3A%20Noetic/badge.svg)](https://github.com/boschresearch/fmi_adapter/actions)
 
-This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS nodes. FMUs are defined in the [FMI standard](http://fmi-standard.org/) and can be created with a variety of modeling and simulation tools, including [Dymola](http://www.3ds.com/products-services/catia/products/dymola), [MATLAB/Simulink](https://www.mathworks.com/products/simulink.html), [OpenModelica](https://www.openmodelica.org/), [SimulationX](https://www.simulationx.de/), and [Wolfram System Modeler](http://www.wolfram.com/system-modeler/).
+This repository provides the fmi_adapter package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS nodes. The implementation for the second generation of ROS (i.e. ROS 2) can be found in the branches named after the distributions (e.g., [Foxy](https://github.com/boschresearch/fmi_adapter/tree/foxy)) and the [master](https://github.com/boschresearch/fmi_adapter/tree/master) branch for the Rolling distribution.
+
+FMUs are defined in the [FMI standard](http://fmi-standard.org/) and can be created with a variety of modeling and simulation tools, including [Dymola](http://www.3ds.com/products-services/catia/products/dymola), [MATLAB/Simulink](https://www.mathworks.com/products/simulink.html), [OpenModelica](https://www.openmodelica.org/), [SimulationX](https://www.simulationx.de/), and [Wolfram System Modeler](http://www.wolfram.com/system-modeler/).
 
 fmi_adapter provides a library with convenience functions based on common ROS types to load an FMU during runtime, retrieve the input, output, and parameter names, set timestamped input values, run the FMU's numeric solver, and query the resulting output.
 
