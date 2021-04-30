@@ -1,5 +1,4 @@
 [![License](https://img.shields.io/badge/License-Apache%202-blue.svg)](LICENSE)
-[![Build status](http://build.ros2.org/job/Ddev__fmi_adapter__ubuntu_bionic_amd64/badge/icon?subject=Build%20farm%3A%20Dashing)](http://build.ros2.org/job/Ddev__fmi_adapter__ubuntu_bionic_amd64/)
 [![Build status](http://build.ros2.org/job/Fdev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Foxy)](http://build.ros2.org/job/Fdev__fmi_adapter__ubuntu_focal_amd64/)
 [![Build status](http://build.ros2.org/job/Gdev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Galactic)](http://build.ros2.org/job/Gdev__fmi_adapter__ubuntu_focal_amd64/)
 [![Build status](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Rolling)](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_focal_amd64/)
