@@ -2,9 +2,9 @@ name: "Build action: Noetic"
 
 on:
   push:
-    branches: [ noetic ]
+    branches: [ melodic_and_noetic ]
   pull_request:
-    branches: [ noetic ]
+    branches: [ melodic_and_noetic ]
 
 jobs:
   build:
