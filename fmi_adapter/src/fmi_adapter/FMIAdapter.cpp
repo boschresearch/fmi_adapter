@@ -574,9 +574,16 @@ void FMIAdapter::declareROSParameters(
   for (fmi2_import_variable_t * variable : helpers::getVariablesFromFMU(fmu_)) {
     std::string name = fmi2_import_get_variable_name(variable);
     name = rosifyName(name);
+#if defined(USE_OLD_PARAMETER_API_FROM_FOXY)
+    // The above preprocessor variable is defined in the CMakeLists.txt if required.
     nodeInterface->declare_parameter(
       name, rclcpp::ParameterValue(),
       rcl_interfaces::msg::ParameterDescriptor());
+#else
+    // Already specify the type of parameter here, but note that get_type() will
+    // return PARAMETER_NOT_SET until a value is set.
+    nodeInterface->declare_parameter(name, rclcpp::ParameterType::PARAMETER_DOUBLE);
+#endif
   }
 }
 
@@ -600,6 +607,8 @@ void FMIAdapter::initializeFromROSParameters(
         value = parameter.as_double();
         setInitialValue(variable, value);
       }
+    } else {
+      // Use default value or initial guess from FMU.
     }
   }
 }

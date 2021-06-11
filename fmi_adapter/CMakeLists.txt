@@ -20,6 +20,13 @@ find_package(rcutils REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(fmilibrary_vendor REQUIRED)
 
+if("${rclcpp_VERSION}" VERSION_LESS "3.0.0")
+  message(STATUS "Found rclcpp version ${rclcpp_VERSION}, which belongs to Foxy or earlier.")
+  add_definitions(-DUSE_OLD_PARAMETER_API_FROM_FOXY)
+else()
+  message(STATUS "Found rclcpp version ${rclcpp_VERSION}, which belongs to Galactic or later.")
+endif()
+
 add_library(${PROJECT_NAME} SHARED
   src/${PROJECT_NAME}/FMIAdapter.cpp
   src/${PROJECT_NAME}/FMIAdapterNode.cpp
