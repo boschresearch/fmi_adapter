@@ -2,6 +2,10 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Adapted to statically typed parameters introduced in Galactic.
+
 2.1.0 (2021-03-24)
 ------------------
 * Adapted launch files to API changes.
