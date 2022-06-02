@@ -52,6 +52,7 @@ Please notice the following issues/limitations:
 
 *   fmi_adapter only supports FMUs according to the FMI 2.0 standard.
 *   fmi_adapter treats all inputs, outputs and parameters of a given FMU as floating-point values (ROS message std_msgs::msg::Float64, C++ type double, FMI type fmi2fmi2_real_t).
+*   A possible end time specified in an FMU is not considered, i.e., the FMU is being evaluated constantly until the corresponding ROS node is shutdown.
 
 
 ## Papers
