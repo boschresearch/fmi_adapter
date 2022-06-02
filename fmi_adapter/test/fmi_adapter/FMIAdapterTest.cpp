@@ -22,7 +22,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 
-#include <rcutils/get_env.h>
+#include <rcutils/env.h>
 
 #include "fmi_adapter/FMIAdapter.hpp"
 
