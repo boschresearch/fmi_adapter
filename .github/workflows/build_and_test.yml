@@ -1,4 +1,4 @@
-name: "Build action: Foxy, Galactic, Rolling"
+name: "Build action: Foxy, Galactic, Humble, Rolling"
 
 on:
   push:
@@ -11,16 +11,22 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        # os: [ ubuntu-20.04, windows-latest, macOS-latest ]
-        os: [ ubuntu-20.04 ]
-        ros_distribution: [ foxy, galactic, rolling ]
+        include:
+          - ros_distribution: "foxy"
+            os: "ubuntu-20.04"
+          - ros_distribution: "galactic"
+            os: "ubuntu-20.04"
+          - ros_distribution: "humble"
+            os: "ubuntu-22.04"
+          - ros_distribution: "rolling"
+            os: "ubuntu-22.04"
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-    - uses: ros-tooling/setup-ros@v0.2
+    - uses: ros-tooling/setup-ros@v0.3
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
     - uses : ros-tooling/action-ros-ci@v0.2
