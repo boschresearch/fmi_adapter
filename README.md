@@ -4,7 +4,7 @@
 [![Build status](http://build.ros2.org/job/Hdev__fmi_adapter__ubuntu_jammy_amd64/badge/icon?subject=Build%20farm%3A%20Humble)](http://build.ros2.org/job/Hdev__fmi_adapter__ubuntu_jammy_amd64/)
 [![Build status](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_jammy_amd64/badge/icon?subject=Build%20farm%3A%20Rolling)](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_jammy_amd64/)
 [![Build status](https://github.com/boschresearch/fmi_adapter/workflows/Build%20action%3A%20Foxy%2C%20Galactic%2C%20Humble%2C%20Rolling/badge.svg)](https://github.com/boschresearch/fmi_adapter/actions)
-[![Code coverage](https://codecov.io/gh/boschresearch/fmi_adapter/branch/master/graph/badge.svg)](https://codecov.io/gh/boschresearch/fmi_adapter)
+[![Code coverage](https://codecov.io/gh/boschresearch/fmi_adapter/branch/rolling/graph/badge.svg)](https://codecov.io/gh/boschresearch/fmi_adapter)
 
 # The fmi_adapter repository
 
