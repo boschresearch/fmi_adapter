@@ -12,7 +12,7 @@ Technically, a co-simulation FMU is a zip file (with suffix .fmu) containing a p
 
 ## fmi_adapter_node
 
-fmi_adapter provides a ROS node *fmi_adapter_node* (class [FMIAdapterNode](include/fmi_adapter/FMIAdapterNode.hpp) derived from [LifecycleNode](https://github.com/ros2/rclcpp/blob/master/rclcpp_lifecycle/include/rclcpp_lifecycle/lifecycle_node.hpp)), which takes an FMU and creates subscribers and publishers for the input and output variables of the FMU, respectively. Then, it runs the FMU's solver with a user-definable update period. This approach is illustrated in the following diagram.
+fmi_adapter provides a ROS node *fmi_adapter_node* (class [FMIAdapterNode](include/fmi_adapter/FMIAdapterNode.hpp) derived from [LifecycleNode](https://github.com/ros2/rclcpp/blob/rolling/rclcpp_lifecycle/include/rclcpp_lifecycle/lifecycle_node.hpp)), which takes an FMU and creates subscribers and publishers for the input and output variables of the FMU, respectively. Then, it runs the FMU's solver with a user-definable update period. This approach is illustrated in the following diagram.
 
 ![fmi_adapter in application node](doc/high-level_architecture_with_fmi_adapter_node.png)
 
