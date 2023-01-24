@@ -29,6 +29,7 @@ jobs:
     - uses: ros-tooling/setup-ros@v0.3
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
+    - run: sudo pip install pydocstyle==6.1.1  # downgrade to fix https://github.com/ament/ament_lint/pull/428
     - uses : ros-tooling/action-ros-ci@v0.2
       with:
         package-name: fmi_adapter
