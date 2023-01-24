@@ -1,4 +1,0 @@
-- git:
-    local-name: fmilibrary_vendor
-    uri: https://github.com/boschresearch/fmilibrary_vendor.git
-    version: rolling
