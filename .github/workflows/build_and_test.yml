@@ -1,4 +1,4 @@
-name: "Build action: Foxy, Galactic, Humble, Rolling"
+name: "Build action: Foxy, Humble, Rolling"
 
 on:
   push:
@@ -16,8 +16,6 @@ jobs:
       matrix:
         include:
           - ros_distribution: "foxy"
-            os: "ubuntu-20.04"
-          - ros_distribution: "galactic"
             os: "ubuntu-20.04"
           - ros_distribution: "humble"
             os: "ubuntu-22.04"
