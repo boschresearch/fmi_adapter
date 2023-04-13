@@ -2,6 +2,12 @@
 Changelog for package fmi_adapter
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.1.2 (2023-04-13)
+------------------
+* Updated link to lifecycle_node.hpp.
+* Updated include get_env.h to env.h.
+* Contributors: Ralph Lange
+
 2.1.1 (2021-06-11)
 ------------------
 * Adapted to statically typed parameters introduced in Galactic.
