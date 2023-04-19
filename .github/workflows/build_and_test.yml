@@ -24,11 +24,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
-    - uses: ros-tooling/setup-ros@v0.3
+    - uses: ros-tooling/setup-ros@v0.6
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
     - run: sudo pip install pydocstyle==6.1.1  # downgrade to fix https://github.com/ament/ament_lint/pull/428
-    - uses : ros-tooling/action-ros-ci@v0.2
+    - uses : ros-tooling/action-ros-ci@v0.3
       with:
         package-name: fmi_adapter
         vcs-repo-file-url: dependencies.repos
