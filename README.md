@@ -1,9 +1,4 @@
-[![License](https://img.shields.io/badge/License-Apache%202-blue.svg)](LICENSE)
-[![Build status](http://build.ros2.org/job/Fdev__fmi_adapter__ubuntu_focal_amd64/badge/icon?subject=Build%20farm%3A%20Foxy)](http://build.ros2.org/job/Fdev__fmi_adapter__ubuntu_focal_amd64/)
-[![Build status](http://build.ros2.org/job/Hdev__fmi_adapter__ubuntu_jammy_amd64/badge/icon?subject=Build%20farm%3A%20Humble)](http://build.ros2.org/job/Hdev__fmi_adapter__ubuntu_jammy_amd64/)
-[![Build status](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_jammy_amd64/badge/icon?subject=Build%20farm%3A%20Rolling)](http://build.ros2.org/job/Rdev__fmi_adapter__ubuntu_jammy_amd64/)
-[![Build status](https://github.com/boschresearch/fmi_adapter/workflows/Build%20action%3A%20Foxy%2C%20Humble%2C%20Rolling/badge.svg)](https://github.com/boschresearch/fmi_adapter/actions)
-[![Code coverage](https://codecov.io/gh/boschresearch/fmi_adapter/branch/rolling/graph/badge.svg)](https://codecov.io/gh/boschresearch/fmi_adapter)
+**!!! This branch is no longer maintained as the ROS 2 Foxy distribution is EOL since June 2023 !!!**
 
 # The fmi_adapter repository
 
