@@ -20,7 +20,7 @@ jobs:
           - ros_distribution: "iron"
             os: "ubuntu-22.04"
           - ros_distribution: "rolling"
-            os: "ubuntu-22.04"
+            os: "ubuntu-24.04"
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
