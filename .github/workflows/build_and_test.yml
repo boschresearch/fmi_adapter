@@ -1,4 +1,4 @@
-name: "Build action: Humble, Rolling"
+name: "Build action: Humble, Jazzy, Rolling"
 
 on:
   push:
@@ -17,6 +17,8 @@ jobs:
         include:
           - ros_distribution: "humble"
             os: "ubuntu-22.04"
+          - ros_distribution: "jazzy"
+            os: "ubuntu-24.04"
           - ros_distribution: "rolling"
             os: "ubuntu-24.04"
     runs-on: ${{ matrix.os }}
