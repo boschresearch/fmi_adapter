@@ -17,8 +17,6 @@ jobs:
         include:
           - ros_distribution: "humble"
             os: "ubuntu-22.04"
-          - ros_distribution: "iron"
-            os: "ubuntu-22.04"
           - ros_distribution: "rolling"
             os: "ubuntu-24.04"
     runs-on: ${{ matrix.os }}
