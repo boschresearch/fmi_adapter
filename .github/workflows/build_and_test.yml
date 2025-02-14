@@ -1,4 +1,4 @@
-name: "Build action: Humble, Iron, Rolling"
+name: "Build action: Humble, Rolling"
 
 on:
   push:
