@@ -5,7 +5,8 @@
   <version>2.1.2</version>
   <description>Wraps FMUs for co-simulation</description>
 
-  <maintainer email="ralph.lange@de.bosch.com">Ralph Lange</maintainer>
+  <maintainer email="christian.bertsch@de.bosch.com">Christian Bertsch</maintainer>
+  <author email="ralph.lange@de.bosch.com">Ralph Lange</author>
 
   <license>Apache License 2.0</license>
 
