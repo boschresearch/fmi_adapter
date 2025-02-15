@@ -6,12 +6,13 @@
   <description>Provides small examples for use of the fmi_adapter package</description>
 
   <maintainer email="christian.bertsch@de.bosch.com">Christian Bertsch</maintainer>
-  <author email="ralph.lange@de.bosch.com">Ralph Lange</author>
 
   <license>Apache License 2.0</license>
 
   <url type="website">http://wiki.ros.org/fmi_adapter</url>
   <url type="repository">https://github.com/boschresearch/fmi_adapter</url>
+
+  <author email="ralph.lange@de.bosch.com">Ralph Lange</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
