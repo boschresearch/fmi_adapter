@@ -236,7 +236,7 @@ FMIAdapter::~FMIAdapter()
   delete static_cast<fmi2_callback_functions_t *>(fmiCallbacks_);
 
   if (removeTmpPathInDtor_) {
-    // TODO(Ralph) Remove folder fmi_adapter_XXXXXX from /tmp.
+    // TODO: Remove folder fmi_adapter_XXXXXX from /tmp.
     // Such function is not provided by Posix or C++11/14.
     // Possibly use boost::filesystem::remove_all. Then other
     // filesystem functions used here and use of "/tmp" may be
@@ -359,7 +359,6 @@ void FMIAdapter::exitInitializationMode(const rclcpp::Time & simulationTime)
   fmuTimeOffset_ = simulationTime - rclcpp::Time(0, 0, RCL_ROS_TIME);
   assert(fmuTime_ == 0.0);
 
-  // TODO(Ralph) Avoid creation of std::vector here.
   for (fmi2_import_variable_t * variable : getInputVariables()) {
     std::map<rclcpp::Time, double> & inputValues = inputValuesByVariable_[variable];
     if (inputValues.empty() || inputValues.begin()->first > simulationTime) {
@@ -401,7 +400,6 @@ rclcpp::Time FMIAdapter::doStep(const rclcpp::Duration & stepSize)
 
 void FMIAdapter::doStepInternal(const rclcpp::Duration & stepSize)
 {
-  // TODO(Ralph) Avoid creation of std::vector here.
   for (fmi2_import_variable_t * variable : getInputVariables()) {
     std::map<rclcpp::Time, double> & inputValues = inputValuesByVariable_[variable];
     assert(
