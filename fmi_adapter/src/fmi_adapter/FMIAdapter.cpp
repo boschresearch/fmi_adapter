@@ -236,7 +236,7 @@ FMIAdapter::~FMIAdapter()
   delete static_cast<fmi2_callback_functions_t *>(fmiCallbacks_);
 
   if (removeTmpPathInDtor_) {
-    // TODO: Remove folder fmi_adapter_XXXXXX from /tmp.
+    // TODO(chrbertsch) Remove folder fmi_adapter_XXXXXX from /tmp.
     // Such function is not provided by Posix or C++11/14.
     // Possibly use boost::filesystem::remove_all. Then other
     // filesystem functions used here and use of "/tmp" may be
