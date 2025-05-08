@@ -35,7 +35,7 @@ add_library(${PROJECT_NAME} SHARED
 target_include_directories(${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>
   PRIVATE $<BUILD_INTERFACE:${FMILibraryProject_INCLUDE_DIR}>)
-ament_target_dependencies(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PUBLIC
   "rcl_interfaces"
   "rclcpp"
   "rclcpp_components"
