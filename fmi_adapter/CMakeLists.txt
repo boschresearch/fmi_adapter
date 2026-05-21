@@ -34,7 +34,7 @@ add_library(${PROJECT_NAME} SHARED
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>
-  PRIVATE $<BUILD_INTERFACE:${FMILibraryProject_INCLUDE_DIR}>)
+  PRIVATE ${fmilibrary_vendor_INCLUDE_DIRS})
 target_link_libraries(
   ${PROJECT_NAME} PUBLIC
   ${rcl_interfaces_TARGETS}
@@ -42,7 +42,7 @@ target_link_libraries(
   ${rclcpp_components_TARGETS}
   rclcpp_lifecycle::rclcpp_lifecycle
   ${std_msgs_TARGETS}
-  ${fmilibrary_vendor_TARGETS}
+  ${fmilibrary_vendor_LIBRARIES}
 )
 install(DIRECTORY include/ DESTINATION include)
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
