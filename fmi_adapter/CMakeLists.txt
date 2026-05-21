@@ -34,16 +34,16 @@ add_library(${PROJECT_NAME} SHARED
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>
-  PRIVATE $<BUILD_INTERFACE:${FMILibraryProject_INCLUDE_DIR}>)
-ament_target_dependencies(${PROJECT_NAME}
-  "rcl_interfaces"
-  "rclcpp"
-  "rclcpp_components"
-  "rclcpp_lifecycle"
-  "std_msgs"
-  "fmilibrary_vendor"
+  PRIVATE ${fmilibrary_vendor_INCLUDE_DIRS})
+target_link_libraries(
+  ${PROJECT_NAME} PUBLIC
+  ${rcl_interfaces_TARGETS}
+  rclcpp::rclcpp
+  ${rclcpp_components_TARGETS}
+  rclcpp_lifecycle::rclcpp_lifecycle
+  ${std_msgs_TARGETS}
+  ${fmilibrary_vendor_LIBRARIES}
 )
-target_link_libraries(${PROJECT_NAME} dl)
 install(DIRECTORY include/ DESTINATION include)
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 rclcpp_components_register_nodes(${PROJECT_NAME} "fmi_adapter::FMIAdapterNode")
@@ -62,11 +62,11 @@ if(BUILD_TESTING)
   )
   target_include_directories(${PROJECT_NAME}_test PRIVATE include)
   target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
-  ament_target_dependencies(${PROJECT_NAME}_test
-    "rclcpp"
-    "rclcpp_lifecycle"
-    "rcutils"
-    "std_msgs"
+  target_link_libraries(${PROJECT_NAME}_test
+    rclcpp::rclcpp
+    rclcpp_lifecycle::rclcpp_lifecycle
+    rcutils::rcutils
+    ${std_msgs_TARGETS}
   )
 
   find_package(ament_lint_auto REQUIRED)
