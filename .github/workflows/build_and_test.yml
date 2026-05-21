@@ -1,4 +1,4 @@
-name: "Build action: Humble, Jazzy, Rolling"
+name: "Build and Test"
 
 on:
   push:
@@ -26,10 +26,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v6.0.2
-    - uses: ros-tooling/setup-ros@v0.7.17
+    - uses: ros-tooling/setup-ros@0.7.17
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
-    - uses : ros-tooling/action-ros-ci@v0.4.8
+    - uses : ros-tooling/action-ros-ci@0.4.8
       with:
         package-name: fmi_adapter
         vcs-repo-file-url: dependencies.repos
