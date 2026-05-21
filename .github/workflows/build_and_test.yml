@@ -19,15 +19,17 @@ jobs:
             os: "ubuntu-22.04"
           - ros_distribution: "jazzy"
             os: "ubuntu-24.04"
+          - ros_distribution: "kilted"
+            os: "ubuntu-24.04"
           - ros_distribution: "rolling"
             os: "ubuntu-24.04"
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: ros-tooling/setup-ros@v0.7
+    - uses: actions/checkout@v6.0.2
+    - uses: ros-tooling/setup-ros@v0.7.17
       with:
         required-ros-distributions: ${{ matrix.ros_distribution }}
-    - uses : ros-tooling/action-ros-ci@v0.3
+    - uses : ros-tooling/action-ros-ci@v0.4.8
       with:
         package-name: fmi_adapter
         vcs-repo-file-url: dependencies.repos
@@ -39,6 +41,6 @@ jobs:
             }
           }
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
-    - uses: codecov/codecov-action@v3
+    - uses: codecov/codecov-action@v6.0.1
       with:
-        file: ros_ws/lcov/total_coverage.info
+        files: ros_ws/lcov/total_coverage.info
