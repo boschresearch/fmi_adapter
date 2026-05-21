@@ -1,6 +1,5 @@
 General information about this repository, including legal information, build instructions and known issues/limitations, are given in [README.md](../README.md) in the repository root.
 
-
 # The fmi_adapter package
 
 fmi_adapter is a small [ROS 2](http://www.ros.org/) package for wrapping *functional mockup units (FMUs)* for co-simulation of physical models into ROS nodes. FMUs are defined in the [FMI standard](http://fmi-standard.org/). Currently, this package supports co-simulation FMUs according to the FMI 2.0 standard only.
@@ -8,7 +7,6 @@ fmi_adapter is a small [ROS 2](http://www.ros.org/) package for wrapping *functi
 FMUs can be created with a variety of modeling and simulation tools. Examples are [Dymola](http://www.3ds.com/products-services/catia/products/dymola), [MATLAB/Simulink](https://www.mathworks.com/products/simulink.html), [OpenModelica](https://www.openmodelica.org/), [SimulationX](https://www.simulationx.de/), and [Wolfram System Modeler](http://www.wolfram.com/system-modeler/).
 
 Technically, a co-simulation FMU is a zip file (with suffix .fmu) containing a physical model and the corresponding solver as a shared library together with an XML file describing the inputs, outputs and parameters of the model and details of the solver configuration. An addition, the zip file may contain the source code of the model and solver in the C programming language.
-
 
 ## fmi_adapter_node
 
@@ -26,7 +24,6 @@ ros2 launch fmi_adapter fmi_adapter_node.launch.py fmu_path:=[PathToTheFMUFile]
 
 Please see the [README.md](../fmi_adapter_examples/README.md) of the [fmi_adapter_examples package](../fmi_adapter_examples/) for a step-by-step description how to use the fmi_adapter_node with a damped pendulum model and FMU.
 
-
 ## fmi_adapter library
 
 fmi_adapter provides a library with convenience functions based on common ROS types to load an FMU during runtime, to retrieve the input, output, and parameter names, to set timestamped input values, to run the FMU's numeric solver, and to query the resulting output. These functions are provided by the class [FMIAdapter](include/fmi_adapter/FMIAdapter.hpp). Instances of this class may be integrated in application-specific ROS nodes or libraries as illustrated in the following architecture diagram.
@@ -34,7 +31,6 @@ fmi_adapter provides a library with convenience functions based on common ROS ty
 ![fmi_adapter in application node](doc/high-level_architecture_with_application_node.png)
 
 For parsing the XML description of an FMU and for running the FMU's solver, fmi_adapter uses the C library [FMI Library](http://www.jmodelica.org/FMILibrary). For this purpose, fmi_adapter depends on the [fmilibrary\_vendor](https://github.com/boschresearch/fmilibrary_vendor) package, which downloads and builds the FMI Library using cmake's *externalproject\_add* command.
-
 
 ## Running an FMU inside a ROS node or library
 
@@ -94,12 +90,11 @@ The function `adapter->initializeFromROSParameters(get_node_parameters_interface
 adapter->exitInitializationMode(now());
 ```
 
-
 ## Papers
 
 If you want to cite this repository/package, please cite the following book chapter ([PDF available at Springer Link](https://doi.org/10.1007/978-3-030-45956-7_7)) instead:
 
-Ralph Lange, Silvio Traversaro, Oliver Lenord, and Christian Bertsch: Integrating the Functional Mock-Up Interface with ROS and Gazebo. In: _Anis Koubaa (ed.) Robot Operating System (ROS): The Complete Reference (Volume 5)_, Springer, pp. 187–231, 2021.
+Ralph Lange, Silvio Traversaro, Oliver Lenord, and Christian Bertsch: Integrating the Functional Mock-Up Interface with ROS and Gazebo. In: *Anis Koubaa (ed.) Robot Operating System (ROS): The Complete Reference (Volume 5)*, Springer, pp. 187–231, 2021.
 
 ```bibtex
 @INBOOK{Lange_et_al_2021_Integrating_the_FMI_with_ROS_and_Gazebo,
